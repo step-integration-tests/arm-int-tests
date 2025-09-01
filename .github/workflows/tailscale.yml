@@ -1,0 +1,43 @@
+name: Tailscale
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  test-host-outbound:
+    runs-on: ubuntu-latest
+    steps:
+      
+            
+      - name: Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          version: 1.64.0
+          args: --accept-routes --accept-dns
+      - run: cat /run/systemd/resolve/resolv.conf
+      - run: cat /etc/resolv.conf
+      - name: Print Tailscale logs
+        run: |
+          echo "Tailscale logs:"
+          sudo tailscale bugreport || echo "Failed to collect Tailscale bugreport."
+          
+      - name: Check Tailscale DNS configuration
+        run: |
+          echo "Tailscale DNS configuration:"
+          sudo tailscale status 
+      - name: Resolve domain and print DNS server
+        run: |
+          DOMAIN="google.com"
+          echo "Resolving domain: $DOMAIN"
+          # Perform the DNS resolution and extract the server(s) used
+          DIG_OUTPUT=$(dig $DOMAIN +trace +short)
+          # Display the results of the DNS query
+          echo "$DIG_OUTPUT"
+          # Extract and print the DNS server(s) that resolved the query
+          DNS_SERVERS=$(dig $DOMAIN | grep 'SERVER:' | awk '{print $3}')
+          echo "DNS Server(s) used: $DNS_SERVERS"
+      - name: Checkout code
+        uses: actions/checkout@v3

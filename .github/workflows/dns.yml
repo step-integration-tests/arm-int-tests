@@ -1,0 +1,40 @@
+name: DNS Resolution Workflow
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  dns-resolution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@int-sh
+        with:
+          egress-policy: audit
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Resolve A Record
+        run: |
+          nslookup -type=A github.com || echo "A record resolution failed"
+
+      - name: Resolve AAAA Record
+        run: |
+          nslookup -type=AAAA github.com || echo "AAAA record resolution failed"
+
+      - name: Resolve CNAME Record
+        run: |
+          nslookup -type=CNAME github.com || echo "CNAME record resolution failed"
+
+      - name: Resolve MX Record
+        run: |
+          nslookup -type=MX github.com || echo "MX record resolution failed"
+
+      - name: Resolve TXT Record
+        run: |
+          nslookup -type=TXT github.com || echo "TXT record resolution failed"
+
+      - name: Resolve NS Record
+        run: |
+          nslookup -type=NS github.com || echo "NS record resolution failed"

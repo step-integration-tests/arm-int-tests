@@ -1,0 +1,25 @@
+name: Agent Tracer Block ARM
+
+on:
+  workflow_dispatch:
+jobs:
+  job2:
+    if: always()
+    runs-on: ARMLinuxRunner
+    steps:
+      - uses: h0x0er/harden-runner@int
+        with:
+         egress-policy: block
+         agent-env: int-pull
+         tls-env: agent
+         allowed-endpoints: >
+           google.com:80
+           api.github.com:80
+           github.com:80
+           
+           
+      - run: curl -v -4 google.com
+      - run: curl -v -4 api.github.com
+      - run: curl -v -4 github.com
+      
+      - run: dig "github-action.23d6a18a-f8eb-4d21-ae92-7bbcbdd57261.dnshook.site"

@@ -1,0 +1,145 @@
+name: k3s Outbound Connectivity Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  k3s-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@int-sh
+        with:
+          egress-policy: audit
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - run: cat /etc/resolv.conf
+      - name: Install k3d
+        shell: bash
+        run: |
+          # Disable swap otherwise memory enforcement does not work
+          # See: https://kubernetes.slack.com/archives/CEKK1KTN2/p1600009955324200
+          sudo swapoff -a
+          sudo rm -f /swapfile
+  
+          curl -Lo ./k3d https://github.com/k3d-io/k3d/releases/download/v5.7.4/k3d-$(uname)-amd64
+          chmod +x ./k3d
+          sudo mv k3d /usr/local/bin
+
+      - name: Create k3d cluster
+        shell: bash
+        run: |
+          cat > k3d.yaml <<EOF
+          apiVersion: k3d.io/v1alpha5
+          kind: Simple
+          agents: 0
+          image: "rancher/k3s:latest"
+          registries:
+            create:
+              name: "registry.local"
+              host: "0.0.0.0"
+              hostPort: "5000"
+            config: |
+              mirrors:
+                "mirror.gcr.io":
+                  endpoint:
+                  - "https://mirror.gcr.io"
+          options:
+            k3s:
+              extraArgs:
+                # Let consumers use their own ingress and leave the builtin LB unclaimed
+                - arg: --disable=traefik
+                  nodeFilters:
+                    - server:*
+                # Let consumers use their own metrics-server and leave the builtin unclaimed
+                - arg: --disable=metrics-server
+                  nodeFilters:
+                    - server:*
+                # This is needed in order to support projected volumes with service account tokens.
+                # See:
+                #   https://kubernetes.slack.com/archives/CEKK1KTN2/p1600268272383600
+                #   https://stackoverflow.com/questions/74603633/k3s-allow-unauthenticated-access-to-oidc-endpoints
+                - arg: --kube-apiserver-arg=anonymous-auth=true
+                  nodeFilters:
+                    - server:*
+                # This sets the issuer to what sigstore scaffolding expects.
+                # See also: https://github.com/k3d-io/k3d/issues/1187
+                - arg: --kube-apiserver-arg=service-account-issuer=https://kubernetes.default.svc
+                  nodeFilters:
+                    - server:*
+                - arg: --kubelet-arg=max-pods=110
+                  nodeFilters:
+                    - server:*
+                    - agent:*
+          EOF
+  
+          echo "Using k3d config file: "
+          cat k3d.yaml
+          
+          
+          #k3d cluster create mycluster --wait --verbose
+          k3d cluster create mycluster --config k3d.yaml --timeout 5m --verbose
+  
+          # K3d sets this up for us in the node, but we're responsible for the host
+          sudo echo "127.0.0.1 registry.local" | sudo tee -a /etc/hosts
+  
+     
+      - name: Set start time output
+        id: start-time
+        run: echo "k3d-start-time=$(echo $(($(date +%s%N)/1000000)))" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Verify k3s installation
+        run: kubectl get nodes
+      - run: docker ps
+
+     
+      - name: Deploy app to local k8s cluster
+        run: |
+          kubectl apply -f k8s/deployment.yml  # Ensure your deployment YAML is in the k8s folder
+          kubectl rollout status deployment/nginx-deployment  # Use the correct deployment name
+          
+      - name: Deploy test pod
+        run: |
+          kubectl apply -f - <<EOF
+          apiVersion: v1
+          kind: Pod
+          metadata:
+            name: test-pod
+          spec:
+            containers:
+            - name: curl-container
+              image: curlimages/curl:7.85.0
+              command: ["sh", "-c", "sleep infinity"]
+          EOF
+
+      - name: Wait for pod to be ready
+        run: kubectl wait --for=condition=Ready pod/test-pod --timeout=60s
+
+      - name: Verify outbound connectivity
+        run: |
+          kubectl exec test-pod -- curl -I https://www.google.com
+
+      - name: Check pod logs
+        run: kubectl logs test-pod
+      - run: cat /etc/resolv.conf
+      - name: Get Kubernetes events
+        run: kubectl get events --all-namespaces
+
+      - name: Print k3s server logs
+        if: always()
+        run: |
+         docker logs k3d-mycluster-server-0
+         docker exec k3d-mycluster-server-0 cat /etc/resolv.conf
+         docker inspect k3d-mycluster-server-0 | grep -i networkmode
+
+      - name: Print k3s agent logs (if any)
+        if: ${{ inputs.worker-count != '0' }}
+        run: |
+          echo "==== k3s Agent Logs ===="
+          AGENT_CONTAINERS=$(docker ps --filter "name=k3d-${CLUSTER_NAME}-agent-" --format "{{.Names}}")
+          for AGENT_CONTAINER in $AGENT_CONTAINERS; do
+            echo "Agent container: $AGENT_CONTAINER"
+            docker logs $AGENT_CONTAINER
+          done

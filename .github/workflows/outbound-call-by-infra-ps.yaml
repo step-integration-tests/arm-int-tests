@@ -1,0 +1,87 @@
+name: Outbound network call by infra process
+
+on:
+  workflow_dispatch: { }
+
+jobs:
+  outbound-call:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: audit
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install curl
+        run: sudo apt-get update && sudo apt-get install -y curl
+
+      - name: Schedule heartbeat cron
+        run: |
+          # Create a cron file; user 'runner' exists on ubuntu-latest
+          echo "* * * * * runner curl -fsS -X POST http://example.com/heartbeat >/dev/null 2>&1" \
+            | sudo tee /etc/cron.d/heartbeat-job
+          sudo chmod 644 /etc/cron.d/heartbeat-job
+
+          # Reload cron so it picks up the new job
+          sudo service cron reload
+
+      - name: Do other work
+        run: |
+          echo "Cron daemon PID: $(pgrep cron)"
+          echo "Cron daemon PPID: $(ps -o ppid= -p $(pgrep cron))"
+          echo "Cron is now firing every minute in the background..."
+          sleep 90   # keep the job alive long enough to see it run
+
+  test-docker-build-outbound:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            archive.ubuntu.com:80
+            auth.docker.io:443
+            github.com:443
+            goreleaser.com:443
+            production.cloudflare.docker.com:443
+            registry-1.docker.io:443
+            security.ubuntu.com:80
+
+      - run: cat /etc/resolv.conf
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image and test outbound calls during build
+        continue-on-error: true
+        run: |
+          # Create a Dockerfile that installs curl and makes outbound calls
+          cat <<EOF > Dockerfile
+          FROM ubuntu:latest
+          RUN apt-get update && apt-get install -y curl
+          RUN for i in {1..9}; do curl -I https://www.google.com && curl -I https://goreleaser.com; sleep 10; done
+          EOF
+
+          # Build the Docker image
+          docker build -t test-image .
+
+          # Print /etc/resolv.conf from the build container (temporary container used during build)
+          container_id=$(docker create test-image)
+          docker start $container_id
+          docker exec $container_id cat /etc/resolv.conf
+          docker stop $container_id
+          docker rm $container_id
+
+      - name: Print Docker logs with journalctl
+        run: |
+          sudo journalctl -u docker.service --no-pager
+        shell: bash
+
+      - run: cat /etc/resolv.conf
+      - run: cat /run/systemd/resolve/resolv.conf
+
+      - name: Download with wget from domain
+        run: wget https://www.amazon.in/

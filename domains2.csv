@@ -1,0 +1,261 @@
+Domain,Category
+google.com,Technology & Software
+microsoft.com,Technology & Software
+apple.com,Technology & Software
+amazon.com,Technology & Software
+facebook.com,Technology & Software
+twitter.com,Technology & Software
+instagram.com,Technology & Software
+linkedin.com,Technology & Software
+github.com,Technology & Software
+stackoverflow.com,Technology & Software
+reddit.com,Technology & Software
+wikipedia.org,Technology & Software
+youtube.com,Technology & Software
+netflix.com,Technology & Software
+spotify.com,Technology & Software
+adobe.com,Technology & Software
+oracle.com,Technology & Software
+ibm.com,Technology & Software
+intel.com,Technology & Software
+nvidia.com,Technology & Software
+amd.com,Technology & Software
+dell.com,Technology & Software
+hp.com,Technology & Software
+lenovo.com,Technology & Software
+cisco.com,Technology & Software
+vmware.com,Technology & Software
+salesforce.com,Technology & Software
+zoom.us,Technology & Software
+slack.com,Technology & Software
+discord.com,Technology & Software
+telegram.org,Technology & Software
+whatsapp.com,Technology & Software
+signal.org,Technology & Software
+dropbox.com,Technology & Software
+box.com,Technology & Software
+atlassian.com,Technology & Software
+notion.so,Technology & Software
+evernote.com,Technology & Software
+trello.com,Technology & Software
+asana.com,Technology & Software
+monday.com,Technology & Software
+clickup.com,Technology & Software
+basecamp.com,Technology & Software
+jira.com,Technology & Software
+confluence.com,Technology & Software
+bitbucket.org,Technology & Software
+gitlab.com,Technology & Software
+docker.com,Technology & Software
+kubernetes.io,Technology & Software
+terraform.io,Technology & Software
+ebay.com,E-commerce & Retail
+alibaba.com,E-commerce & Retail
+walmart.com,E-commerce & Retail
+target.com,E-commerce & Retail
+bestbuy.com,E-commerce & Retail
+homedepot.com,E-commerce & Retail
+lowes.com,E-commerce & Retail
+costco.com,E-commerce & Retail
+etsy.com,E-commerce & Retail
+shopify.com,E-commerce & Retail
+wish.com,E-commerce & Retail
+wayfair.com,E-commerce & Retail
+overstock.com,E-commerce & Retail
+newegg.com,E-commerce & Retail
+rakuten.com,E-commerce & Retail
+mercadolibre.com,E-commerce & Retail
+flipkart.com,E-commerce & Retail
+zalando.com,E-commerce & Retail
+asos.com,E-commerce & Retail
+nordstrom.com,E-commerce & Retail
+macys.com,E-commerce & Retail
+sephora.com,E-commerce & Retail
+ulta.com,E-commerce & Retail
+ikea.com,E-commerce & Retail
+staples.com,E-commerce & Retail
+officedepot.com,E-commerce & Retail
+chewy.com,E-commerce & Retail
+petco.com,E-commerce & Retail
+petsmart.com,E-commerce & Retail
+zappos.com,E-commerce & Retail
+cnn.com,News & Media
+bbc.com,News & Media
+nytimes.com,News & Media
+washingtonpost.com,News & Media
+theguardian.com,News & Media
+reuters.com,News & Media
+bloomberg.com,News & Media
+wsj.com,News & Media
+usatoday.com,News & Media
+foxnews.com,News & Media
+msnbc.com,News & Media
+npr.org,News & Media
+apnews.com,News & Media
+politico.com,News & Media
+thehill.com,News & Media
+axios.com,News & Media
+vox.com,News & Media
+vice.com,News & Media
+buzzfeed.com,News & Media
+huffpost.com,News & Media
+forbes.com,News & Media
+fortune.com,News & Media
+businessinsider.com,News & Media
+techcrunch.com,News & Media
+theverge.com,News & Media
+wired.com,News & Media
+arstechnica.com,News & Media
+engadget.com,News & Media
+gizmodo.com,News & Media
+mashable.com,News & Media
+harvard.edu,Education
+mit.edu,Education
+stanford.edu,Education
+yale.edu,Education
+princeton.edu,Education
+columbia.edu,Education
+berkeley.edu,Education
+ucla.edu,Education
+nyu.edu,Education
+cornell.edu,Education
+upenn.edu,Education
+caltech.edu,Education
+duke.edu,Education
+northwestern.edu,Education
+vanderbilt.edu,Education
+rice.edu,Education
+emory.edu,Education
+georgetown.edu,Education
+cmu.edu,Education
+umich.edu,Education
+coursera.org,Education
+edx.org,Education
+udemy.com,Education
+udacity.com,Education
+khanacademy.org,Education
+codecademy.com,Education
+pluralsight.com,Education
+lynda.com,Education
+skillshare.com,Education
+masterclass.com,Education
+chase.com,Finance & Banking
+bankofamerica.com,Finance & Banking
+wellsfargo.com,Finance & Banking
+citibank.com,Finance & Banking
+usbank.com,Finance & Banking
+capitalone.com,Finance & Banking
+americanexpress.com,Finance & Banking
+discover.com,Finance & Banking
+paypal.com,Finance & Banking
+venmo.com,Finance & Banking
+cashapp.com,Finance & Banking
+zelle.com,Finance & Banking
+stripe.com,Finance & Banking
+square.com,Finance & Banking
+coinbase.com,Finance & Banking
+binance.com,Finance & Banking
+kraken.com,Finance & Banking
+robinhood.com,Finance & Banking
+etrade.com,Finance & Banking
+tdameritrade.com,Finance & Banking
+schwab.com,Finance & Banking
+fidelity.com,Finance & Banking
+vanguard.com,Finance & Banking
+morningstar.com,Finance & Banking
+mint.com,Finance & Banking
+creditkarma.com,Finance & Banking
+nerdwallet.com,Finance & Banking
+bankrate.com,Finance & Banking
+zillow.com,Finance & Banking
+realtor.com,Finance & Banking
+imdb.com,Entertainment
+rottentomatoes.com,Entertainment
+metacritic.com,Entertainment
+twitch.tv,Entertainment
+vimeo.com,Entertainment
+dailymotion.com,Entertainment
+hulu.com,Entertainment
+disneyplus.com,Entertainment
+hbomax.com,Entertainment
+paramountplus.com,Entertainment
+peacocktv.com,Entertainment
+crunchyroll.com,Entertainment
+funimation.com,Entertainment
+pandora.com,Entertainment
+soundcloud.com,Entertainment
+bandcamp.com,Entertainment
+lastfm.com,Entertainment
+genius.com,Entertainment
+ticketmaster.com,Entertainment
+stubhub.com,Entertainment
+fandango.com,Entertainment
+movietickets.com,Entertainment
+steam.com,Entertainment
+epicgames.com,Entertainment
+origin.com,Entertainment
+gog.com,Entertainment
+ign.com,Entertainment
+gamespot.com,Entertainment
+polygon.com,Entertainment
+kotaku.com,Entertainment
+expedia.com,Travel & Transportation
+booking.com,Travel & Transportation
+hotels.com,Travel & Transportation
+airbnb.com,Travel & Transportation
+vrbo.com,Travel & Transportation
+kayak.com,Travel & Transportation
+priceline.com,Travel & Transportation
+tripadvisor.com,Travel & Transportation
+yelp.com,Travel & Transportation
+uber.com,Travel & Transportation
+lyft.com,Travel & Transportation
+southwest.com,Travel & Transportation
+delta.com,Travel & Transportation
+united.com,Travel & Transportation
+aa.com,Travel & Transportation
+jetblue.com,Travel & Transportation
+spirit.com,Travel & Transportation
+frontier.com,Travel & Transportation
+alaskaair.com,Travel & Transportation
+hawaiianairlines.com,Travel & Transportation
+emirates.com,Travel & Transportation
+lufthansa.com,Travel & Transportation
+britishairways.com,Travel & Transportation
+airfrance.com,Travel & Transportation
+klm.com,Travel & Transportation
+qantas.com,Travel & Transportation
+singaporeair.com,Travel & Transportation
+cathaypacific.com,Travel & Transportation
+hertz.com,Travel & Transportation
+enterprise.com,Travel & Transportation
+avis.com,Travel & Transportation
+budget.com,Travel & Transportation
+national.com,Travel & Transportation
+zipcar.com,Travel & Transportation
+turo.com,Travel & Transportation
+webmd.com,Health & Fitness
+mayoclinic.org,Health & Fitness
+healthline.com,Health & Fitness
+medlineplus.gov,Health & Fitness
+nih.gov,Health & Fitness
+cdc.gov,Health & Fitness
+who.int,Health & Fitness
+drugs.com,Health & Fitness
+rxlist.com,Health & Fitness
+goodrx.com,Health & Fitness
+cvs.com,Health & Fitness
+walgreens.com,Health & Fitness
+riteaid.com,Health & Fitness
+myfitnesspal.com,Health & Fitness
+fitbit.com,Health & Fitness
+strava.com,Health & Fitness
+peloton.com,Health & Fitness
+planetfitness.com,Health & Fitness
+anytimefitness.com,Health & Fitness
+orangetheory.com,Health & Fitness
+crossfit.com,Health & Fitness
+weightwatchers.com,Health & Fitness
+noom.com,Health & Fitness
+headspace.com,Health & Fitness
+calm.com,Health & Fitness

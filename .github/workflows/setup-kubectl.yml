@@ -1,0 +1,19 @@
+name: azure/setup-kubectl
+on:
+  workflow_dispatch:
+  
+jobs:
+  generate-jobs:
+    name: Generate Jobs
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - uses: azure/setup-kubectl@vv4.0.0
+      - run: sleep 300
+        
+           

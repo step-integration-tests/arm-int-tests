@@ -1,0 +1,80 @@
+name: DNS Resolution Test for file:// URLs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-dns-resolution:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
+      with:
+        egress-policy: audit
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    
+    - name: Create test Java program
+      run: |
+        cat > DnsTest.java << 'EOF'
+        import java.net.URL;
+        import java.net.URLConnection;
+        import java.io.IOException;
+        
+        public class DnsTest {
+            public static void main(String[] args) {
+                System.out.println("Starting DNS resolution test...\n");
+                
+                String[] testUrls = {
+                    "file:///public.json",
+                    "file://internal.json",
+                    "file:///etc/passwd",  // Control: proper file URL (no DNS)
+                    "http://example.com/test.json"  // Control: should trigger DNS
+                };
+                
+                for (String urlString : testUrls) {
+                    System.out.println("Testing URL: " + urlString);
+                    try {
+                        URL url = new URL(urlString);
+                        System.out.println("  Protocol: " + url.getProtocol());
+                        System.out.println("  Host: " + url.getHost());
+                        System.out.println("  Path: " + url.getPath());
+                        System.out.println("  File: " + url.getFile());
+                        
+                        // Attempt to open connection (may trigger DNS)
+                        try {
+                            URLConnection conn = url.openConnection();
+                            conn.setConnectTimeout(5000);
+                            conn.connect();
+                            System.out.println("  Connection succeeded");
+                        } catch (Exception e) {
+                            System.out.println("  Connection failed: " + e.getMessage());
+                        }
+                        
+                    } catch (Exception e) {
+                        System.out.println("  URL creation failed: " + e.getMessage());
+                    }
+                    System.out.println();
+                }
+            }
+        }
+        EOF
+    
+    - name: Compile Java program
+      run: javac DnsTest.java
+    
+    
+    - name: Run Java test
+      run: |
+        # Run the test program
+        java DnsTest | tee test_output.txt
+    
+   

@@ -1,0 +1,77 @@
+name: Set up Local Kubernetes with k3d and containerd
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-k8s:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: block
+        allowed-endpoints: >
+          auth.docker.io:443
+          dl-cdn.alpinelinux.org:443
+          ghcr.io:443
+          github.com:443
+          objects.githubusercontent.com:443
+          pkg-containers.githubusercontent.com:443
+          production.cloudflare.docker.com:443
+          raw.githubusercontent.com:443
+          registry-1.docker.io:443
+          
+
+        
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Install k3d (lightweight wrapper to run K3s in Docker)
+    - name: Install k3d
+      run: |
+        curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+    # Create a Kubernetes cluster using k3d
+    - name: Create k3d cluster
+      run: |
+        k3d --version
+        k3d cluster create mycluster --wait --verbose
+        k3d cluster list  # List the clusters to ensure it's up and running
+
+    # Verify Kubernetes cluster is up and running
+    - name: Verify connection to cluster
+      run: kubectl get nodes
+    - run: docker ps
+    # Apply your Kubernetes deployment
+    # Apply your Kubernetes deployment
+    - name: Deploy app to local k8s cluster
+      run: |
+        kubectl apply -f k8s/deployment.yml  # Ensure your deployment YAML is in the k8s folder
+        kubectl rollout status deployment/nginx-deployment  # Use the correct deployment name
+
+
+    # Check pods using containerd runtime
+    - name: Check pods running in containerd
+      run: |
+        kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.containerStatuses[0].containerID}{"\n"}{end}'
+
+    - name: Get nginx pod name
+      id: getpod
+      run: |
+        POD_NAME=$(kubectl get pods -l app=nginx -o jsonpath="{.items[0].metadata.name}")
+        echo "POD_NAME=${POD_NAME}"
+        echo "::set-output name=podname::${POD_NAME}"
+
+    - name: Check /etc/resolv.conf in curl-sidecar container
+      run: |
+        kubectl exec -it ${{ steps.getpod.outputs.podname }} -c curl-sidecar -- cat /etc/resolv.conf
+
+    - name: Print k3s server logs
+      run: |
+         docker logs k3d-mycluster-server-0
+         docker exec k3d-mycluster-server-0 cat /etc/resolv.conf
+         docker inspect k3d-mycluster-server-0 | grep -i networkmode
+
+    

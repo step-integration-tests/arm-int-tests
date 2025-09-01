@@ -1,0 +1,36 @@
+name: TLS Basic Tests
+
+on:
+  workflow_dispatch:
+
+# permissions:
+#   contents: read
+
+jobs:
+  dynamic-node:
+    if: always()
+    runs-on: ARMLinuxRunner
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@v3
+      - run: which node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+
+      - run: which node
+
+      - run: node req.js
+
+  owner-mismatch:
+    if: always()
+    runs-on: ARMLinuxRunner
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: audit
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: curl -XPOST https://api.github.com/repos/malicious-owner/malicious-repo

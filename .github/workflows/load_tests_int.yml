@@ -1,0 +1,287 @@
+name: Agent Capability Tests Int
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  test-host-outbound:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+            egress-policy: block
+            allowed-endpoints: >
+              alpinejs.dev:443
+              bing.com:443
+              cohere.com:443
+              github.com:443
+              gittok.vercel.app:443
+              go.dev:443
+              goreleaser.com:443
+              kimi.moonshot.cn:443
+              openrouter.ai:443
+              registry.npmjs.org:443
+              remix.run:443
+              vercel.com:443
+              www.amd.com:443
+              www.apple.com:80
+              www.bing.com:80
+              www.deepseek.com:443
+              www.gitbook.com:80
+              www.intel.com:80
+              www.micron.com:443
+              www.microsoft.com:80
+              www.openai.ai:443
+              www.openai.com:443
+              www.openssh.com:80
+              www.pastebin.com:80
+              www.sentry.org:80
+              www.tsmc.com:443
+              www.amazon.com:443
+              www.meta.com:80
+              www.meta.com:443
+      
+      - name: connecting to domain 
+        run: wget www.meta.com:80
+      - run: resolvectl status
+      - name: Write Slack Webhook to File
+        run: |
+          echo "https://hooks.slack.com/services/T02FSXXXXX/B03SRXXXXX/nkVKXXXXXXXXXXWV39C8wXX" > webhook.txt
+
+      - name: Print Webhook File Contents
+        run: cat webhook.txt
+     
+      - run: cat /run/systemd/resolve/resolv.conf
+      - run: cat /etc/resolv.conf
+      
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - run: curl https://registry.npmjs.org/
+      - run: curl www.amazon.com:443
+      - name: Run outbound calls from host
+        run: |
+          start_time=$(date +%s)
+          end_time=$((start_time + 90))  # 5 minutes = 300 seconds
+          
+          while [ $(date +%s) -lt $end_time ]; do
+            curl -I https://www.google.com
+            curl -I https://goreleaser.com
+            sleep 10  # wait 10 seconds between calls
+          done
+      
+      
+  
+  test-docker-outbound:
+    name: "aws-azure / deploy-to-azure (dev-eastus-aks, eastus, dev-eks, dev, 3b336658-ae85-437c-8a28-ea10aedc232a, fals12345"
+    runs-on: LargeRunner
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+          egress-policy: audit
+          allowed-endpoints: >
+            archive.ubuntu.com:80
+            auth.docker.io:443
+            aws.amazon.com:443
+            github.com:443
+            goreleaser.com:443
+            production.cloudflare.docker.com:443
+            registry-1.docker.io:443
+            security.ubuntu.com:80
+            www.apple.com:443
+            www.microsoft.com:443
+            www.meta.com:443
+            www.meta.com:80
+            www.facebook.com:443
+
+      - name: test
+        run: wget 104.154.89.105
+
+      - name: test
+        run: curl www.pytorch.com
+      
+      - name: test
+        run: wget www.shaadi.com
+
+      - name: test2
+        run: dig www.shaadi.com
+
+      - name: testing 
+        run : wget https://www.cisco.com
+
+      - name: testing
+        run : curl https://www.cisco.com
+
+      - name: testing 2
+        run: wget www.fastly.com
+
+      - name: test 2
+        run : wget www.snapchat.com
+        
+
+      - name: testing 
+        run : wget www.spacex.com
+
+      - name: test 2
+        run : wget www.snapchat.com
+
+      - name: new connection
+        run: wget www.instagram.com
+
+      - name: connecting to domain new 
+        run: wget www.youtube.com       
+            
+      - name: connecting to domain 
+        run: wget www.meta.com
+        
+      - name: connecting to domain2
+        run: wget www.facebook.com
+
+      - name: connecting to domain3
+        run: curl -I https://about.meta.com
+
+      - run: cat /etc/resolv.conf
+      - run: cat /run/systemd/resolve/resolv.conf
+    
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run outbound calls from within Docker container
+        continue-on-error: true
+        run: |
+          # Start the container
+          docker run --rm -d --name test-container ubuntu:latest sleep 90
+          
+          # Install curl in the container
+          docker exec test-container apt-get update
+          docker exec test-container apt-get install -y curl
+          
+          # Print /etc/resolv.conf from the container
+          docker exec test-container cat /etc/resolv.conf
+          
+          # Make outbound calls
+          for i in {1..9}; do
+            docker exec test-container curl -I https://aws.amazon.com/
+            docker exec test-container curl -I https://goreleaser.com
+            sleep 10  # wait 10 seconds between calls
+          done
+          
+          # Stop the container
+          docker stop test-container
+
+      - name: Print Docker logs with journalctl
+        run: |
+            sudo journalctl -u docker.service --no-pager 
+        shell: bash
+      
+      - run: cat /etc/resolv.conf
+      - run: cat /run/systemd/resolve/resolv.conf
+  test-docker-build-outbound:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            archive.ubuntu.com:80
+            auth.docker.io:443
+            github.com:443
+            goreleaser.com:443
+            production.cloudflare.docker.com:443
+            registry-1.docker.io:443
+            security.ubuntu.com:80
+              
+
+      - run: cat /etc/resolv.conf
+     
+      
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image and test outbound calls during build
+        continue-on-error: true
+        run: |
+          # Create a Dockerfile that installs curl and makes outbound calls
+          cat <<EOF > Dockerfile
+          FROM ubuntu:latest
+          RUN apt-get update && apt-get install -y curl
+          RUN for i in {1..9}; do curl -I https://www.google.com && curl -I https://goreleaser.com; sleep 10; done
+          EOF
+          
+          # Build the Docker image
+          docker build -t test-image .
+          
+          # Print /etc/resolv.conf from the build container (temporary container used during build)
+          container_id=$(docker create test-image)
+          docker start $container_id
+          docker exec $container_id cat /etc/resolv.conf
+          docker stop $container_id
+          docker rm $container_id
+
+      - name: Print Docker logs with journalctl
+        run: |
+            sudo journalctl -u docker.service --no-pager 
+        shell: bash
+      
+      - run: cat /etc/resolv.conf
+      - run: cat /run/systemd/resolve/resolv.conf
+      - name: Download with wget from domain
+        run: wget https://www.amazon.in/
+      
+  test-long-running-docker:
+    runs-on: ARMLinuxRunner
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            archive.ubuntu.com:80
+            ports.ubuntu.com:443
+            ports.ubuntu.com:80
+            auth.docker.io:443
+            github.com:443
+            goreleaser.com:443
+            production.cloudflare.docker.com:443
+            registry-1.docker.io:443
+            security.ubuntu.com:80
+
+
+      - run: cat /etc/resolv.conf
+    
+      
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run long-running Docker container with outbound calls
+        continue-on-error: true
+        run: |
+          # Start the long-running container
+          docker run --rm -d --name long-running-container ubuntu:latest bash -c "
+            apt-get update && apt-get install -y curl && 
+            while true; do 
+              curl -I https://www.google.com; 
+              curl -I https://goreleaser.com; 
+              sleep 10; 
+            done
+          "
+          
+          # Print /etc/resolv.conf from the container
+          docker exec long-running-container cat /etc/resolv.conf
+          
+          # Let the container run for 5 minutes
+          sleep 90
+          
+          # Stop the container
+          docker stop long-running-container
+
+      - name: Print Docker logs with journalctl
+        run: |
+            sudo journalctl -u docker.service --no-pager 
+        shell: bash
+     
+      - run: cat /etc/resolv.conf
+      - run: cat /run/systemd/resolve/resolv.conf
+

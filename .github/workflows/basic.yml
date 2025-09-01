@@ -1,0 +1,39 @@
+name: Basic Tests
+
+on:
+  workflow_dispatch:
+
+# permissions:
+#   contents: read
+
+jobs:
+  overwrite:
+    if: always()
+    runs-on: ARMLinuxRunner
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: audit
+      - uses: actions/checkout@v3
+
+      - name: echo overwrite
+        run: echo "## Overwritten" >> README.md
+
+      - name: mv overwrite
+        run: echo "# Replaced" >> README2.md; mv README2.md README.md
+
+  egress-test:
+    if: always()
+    runs-on: ARMLinuxRunner
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          disable-sudo: true
+          allowed-endpoints: |
+            www.google.com:443
+
+      - uses: actions/checkout@v3
+
+      - run: curl https://www.google.com
+      - run: curl https://microsoft.com

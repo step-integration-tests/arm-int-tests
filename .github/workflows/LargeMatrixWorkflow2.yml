@@ -1,0 +1,54 @@
+name: Large Matrix Workflow2
+
+on:
+  workflow_dispatch:
+    inputs:
+      print_count:
+        description: 'Number of times to print (1000 or 3000)'
+        required: true
+        default: '100' # Default value as a string
+  pull_request:
+
+jobs:
+  setup-job:
+    name: Setup Job
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+          egress-policy: audit
+
+      - name: Sleep for 60 seconds
+        run: sleep 60
+
+  generate-jobs:
+    name: Generate Jobs
+    needs: setup-job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+          egress-policy: audit
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Make a curl request
+        run: curl https://google.com
+      
+      - name: Print large amount of text
+        run: |
+          echo "This is job number ${{ matrix.job_id }}"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            print_count=1000
+          else
+            print_count="${{ github.event.inputs.print_count }}"
+          fi
+          for i in $(seq 1 "$print_count"); do
+            echo "Logging text line $i for job ${{ matrix.job_id }}: $(head -c 100 < /dev/urandom | tr -dc 'A-Za-z0-9');"
+          done

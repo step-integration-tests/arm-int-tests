@@ -1,0 +1,27 @@
+name: Disabled Telemetry ARM
+
+on:
+  workflow_dispatch:
+
+# permissions:
+#   contents: read
+
+jobs:
+  disabled-telemetry:
+    if: always()
+    runs-on: ARMLinuxRunner
+    steps:
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          disable-sudo: true
+          disable-telemetry: true
+          allowed-endpoints: |
+            www.google.com:443
+
+      - uses: actions/checkout@v3
+
+      - run: curl https://www.google.com
+      - run: curl https://microsoft.com
+      - run: curl https://youtube.com
+      - run: curl https://bing.com

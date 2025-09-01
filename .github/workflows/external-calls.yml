@@ -1,0 +1,47 @@
+name: External API Calls
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  call-apis:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Run ecapture
+        if: false
+        run: |
+          sudo mkdir -p /home/agent
+          cd /home/agent && wget https://github.com/rohan-stepsecurity/rohan-pg/releases/download/v1.1.2/ecapture -O ecapture
+          cd /home/agent && sudo ./ecapture daemon --event-limit=50&
+    
+      - uses: rohan-stepsecurity/harden-runner@int
+        with:
+         egress-policy: audit
+      
+         
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Perform GET Request
+        run: |
+          echo "Sending GET request..."
+          curl -s https://jsonplaceholder.typicode.com/posts/1
+
+      - name: Perform POST Request
+        run: |
+          echo "Sending POST request..."
+          curl -s -X POST https://jsonplaceholder.typicode.com/posts \
+            -H "Content-Type: application/json" \
+            -d '{"title":"foo","body":"bar","userId":1}' 
+      - name: Perform PUT Request
+        run: |
+          echo "Sending PUT request..."
+          curl -s -X PUT https://jsonplaceholder.typicode.com/posts/1 \
+            -H "Content-Type: application/json" \
+            -d '{"id":1,"title":"updated","body":"updated body","userId":1}'
+
+      - name: Perform GET Request
+        run: |
+          cat /home/runner/work/_temp/network_events.log

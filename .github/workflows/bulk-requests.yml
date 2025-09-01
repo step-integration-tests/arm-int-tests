@@ -1,0 +1,59 @@
+name: Generate Bulk Requests in Single Job
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bulk-request:
+    runs-on: ubuntu-latest
+    steps:
+        
+      - uses: rohan-stepsecurity/harden-runner@int
+        with:
+         egress-policy: audit
+         
+      - name: Generate ~60 requests per domain+method combo
+        run: |
+          domains=("https://example1.com" "https://example2.com" "https://example3.com")
+          methods=("GET" "POST" "PUT" "DELETE" "PATCH" )
+
+          for domain in "${domains[@]}"; do
+            for method in "${methods[@]}"; do
+              echo "Sending ~60 requests to $domain using $method"
+
+              for i in $(seq 1 60); do
+                url="$domain/test-endpoint-$method-$i"
+                echo "::group::[$domain][$method] Request #$i: $url"
+
+                case "$method" in
+                  GET)
+                    curl -X GET "$url" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                  POST)
+                    curl -X POST "$url" -H "Content-Type: application/json" \
+                         -d "{\"index\": $i}" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                  PUT)
+                    curl -X PUT "$url" -H "Content-Type: application/json" \
+                         -d "{\"index\": $i}" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                  DELETE)
+                    curl -X DELETE "$url" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                  PATCH)
+                    curl -X PATCH "$url" -H "Content-Type: application/json" \
+                         -d "{\"index\": $i}" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                  OPTIONS)
+                    curl -X OPTIONS "$url" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                  HEAD)
+                    curl -I "$url" -s -o /dev/null -w "Status: %{http_code}\n"
+                    ;;
+                esac
+
+                echo "::endgroup::"
+              done
+              echo "---"
+            done
+          done

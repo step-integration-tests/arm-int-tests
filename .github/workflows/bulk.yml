@@ -1,0 +1,130 @@
+name: Bulk API
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bulk-request:
+    runs-on: ubuntu-latest
+    steps:
+        
+      - uses: step-security/harden-runner@rc
+        with:
+         egress-policy: block
+         allowed-endpoints: >
+            objects.githubusercontent.com:443
+            github.com:443
+            *.github.com:443
+            google.com:443
+            microsoft.com:443
+            apple.com:443
+            amazon.com:443
+            facebook.com:443
+            twitter.com:443
+            instagram.com:443
+            linkedin.com:443
+            github.com:443
+            stackoverflow.com:443
+            reddit.com:443
+            wikipedia.org:443
+            youtube.com:443
+            netflix.com:443
+            spotify.com:443
+            adobe.com:443
+            oracle.com:443
+            ibm.com:443
+            intel.com:443
+            nvidia.com:443
+            amd.com:443
+            dell.com:443
+            hp.com:443
+            lenovo.com:443
+            cisco.com:443
+            vmware.com:443
+            salesforce.com:443
+            zoom.us:443
+            slack.com:443
+            discord.com:443
+            telegram.org:443
+            whatsapp.com:443
+            signal.org:443
+            dropbox.com:443
+            box.com:443
+            atlassian.com:443
+            notion.so:443
+            evernote.com:443
+            trello.com:443
+            asana.com:443
+            monday.com:443
+            clickup.com:443
+            basecamp.com:443
+            jira.com:443
+            confluence.com:443
+            bitbucket.org:443
+            gitlab.com:443
+            docker.com:443
+            kubernetes.io:443
+            terraform.io:443
+            ebay.com:443
+            alibaba.com:443
+            walmart.com:443
+            target.com:443
+            bestbuy.com:443
+            homedepot.com:443
+            lowes.com:443
+            costco.com:443
+            etsy.com:443
+            shopify.com:443
+            wish.com:443
+            wayfair.com:443
+            overstock.com:443
+            newegg.com:443
+            rakuten.com:443
+            mercadolibre.com:443
+            flipkart.com:443
+            zalando.com:443
+            asos.com:443
+            nordstrom.com:443
+            macys.com:443
+            sephora.com:443
+            ulta.com:443
+            ikea.com:443
+            staples.com:443
+            officedepot.com:443
+            chewy.com:443
+            petco.com:443
+            petsmart.com:443
+            zappos.com:443
+            cnn.com:443
+            bbc.com:443
+            nytimes.com:443
+            washingtonpost.com:443
+            theguardian.com:443
+            reuters.com:443
+            bloomberg.com:443
+            wsj.com:443
+            usatoday.com:443
+            foxnews.com:443
+            msnbc.com:443
+            npr.org:443
+            apnews.com:443
+            politico.com:443
+            thehill.com:443
+            axios.com:443
+            vox.com:443
+            vice.com:443
+            buzzfeed.com:443
+            huffpost.com:443
+
+         
+      - run: sleep 5
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - name: Run Extended Domain Check
+        run: |
+          echo "Running extended domain check with $WORKER_COUNT workers..."
+          go run main.go
+         
