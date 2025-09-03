@@ -74,7 +74,7 @@ jobs:
   
   test-docker-outbound:
     name: "aws-azure / deploy-to-azure (dev-eastus-aks, eastus, dev-eks, dev, 3b336658-ae85-437c-8a28-ea10aedc232a, fals12345"
-    runs-on: ubuntu-latest
+    runs-on: LargeRunner
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@rc-20-int
