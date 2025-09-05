@@ -7,6 +7,9 @@ on:
         description: 'AMI ID to use for the runners'
         required: true
 
+permissions:
+  contents: read
+
 jobs:
   test-host-outbound:
     runs-on:
@@ -16,7 +19,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@646ac01e72c16075733090f55857fc2f2d9a7e7a # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -67,7 +70,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@646ac01e72c16075733090f55857fc2f2d9a7e7a # rc
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -111,7 +114,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@646ac01e72c16075733090f55857fc2f2d9a7e7a # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -156,7 +159,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@646ac01e72c16075733090f55857fc2f2d9a7e7a # rc
         with:
           egress-policy: block
           allowed-endpoints: >
