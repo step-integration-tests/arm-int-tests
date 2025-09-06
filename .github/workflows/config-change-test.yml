@@ -2,12 +2,15 @@ name: Config change test
 on: 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-host-outbound:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@b61b0a4938ef1a80f368fbb9a0abcf78846e15a4 # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -35,7 +38,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@b61b0a4938ef1a80f368fbb9a0abcf78846e15a4 # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -87,7 +90,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@b61b0a4938ef1a80f368fbb9a0abcf78846e15a4 # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -137,6 +140,11 @@ jobs:
     steps:
       
             
+
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
+        with:
+          egress-policy: audit
 
       - run: cat /etc/resolv.conf
       
