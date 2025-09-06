@@ -2,10 +2,11 @@ name: Policy Store
 
 on:
   workflow_dispatch:
-permissions:
-  id-token: write
+
 jobs:
   build:
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     outputs:
       artifact-name: ${{ steps.upload.outputs.artifact-name }}
@@ -49,8 +50,53 @@ jobs:
       - uses: actions/setup-go@v5
         with:
          go-version: '1.23.0'
+  build-no-policy:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.upload.outputs.artifact-name }}
 
-  consume:
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@rc
+        with:
+          policy: block-policy1
+
+      # - run: sudo resolvectl flush-caches 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # - run: |
+      #     bash trace_log.sh&
+          
+      - name: call google
+        run: |
+          dig google.com
+          curl https://google.com
+          
+          
+      - name: call results-receiver.actions.githubusercontent.com
+        run: |
+          dig results-receiver.actions.githubusercontent.com
+          curl https://results-receiver.actions.githubusercontent.com
+          echo "Hello from the build job!" > output.txt
+
+      - name: Upload artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: output.txt
+
+      # - name: print tracer log
+      #   if: always()
+      #   run: |
+      #     sudo cat trace.log
+      - uses: actions/setup-go@v5
+        with:
+         go-version: '1.23.0'
+  build-no-id-token:
     needs: build
     runs-on: ubuntu-latest
 
@@ -61,14 +107,7 @@ jobs:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@rc
         with:
-          egress-policy: block
-          allowed-endpoints: >
-            github.com:443
-            golang.org:443
-            api.github.com:443
-            *.githubusercontent.com:443
-            proxy.golang.org:443
-            sum.golang.org:443
+          policy: block-policy
             
       # - name: Checkout code
       #   uses: actions/checkout@v4
