@@ -14,14 +14,6 @@ jobs:
         uses: step-security/harden-runner@rc
         with:
           policy: block-policy
-          allowed-endpoints: >
-            github.com:443
-            google.com:443
-            golang.org:443
-            api.github.com:443
-            *.githubusercontent.com:443
-            proxy.golang.org:443
-            sum.golang.org:443
 
       # - run: sudo resolvectl flush-caches 
       - name: Checkout code
