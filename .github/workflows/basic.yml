@@ -6,12 +6,15 @@ on:
 # permissions:
 #   contents: read
 
+permissions:
+  contents: read
+
 jobs:
   overwrite:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@646ac01e72c16075733090f55857fc2f2d9a7e7a # rc
         with:
           egress-policy: audit
       - uses: actions/checkout@v3
@@ -26,7 +29,7 @@ jobs:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@646ac01e72c16075733090f55857fc2f2d9a7e7a # rc
         with:
           egress-policy: block
           disable-sudo: true
