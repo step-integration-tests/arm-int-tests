@@ -3,6 +3,9 @@ name: Test Fail with Compromised Action
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-fail:
     runs-on: ubuntu-latest

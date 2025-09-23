@@ -9,6 +9,9 @@ on:
         default: '100' # Default value as a string
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   setup-job:
     name: Setup Job

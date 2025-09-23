@@ -3,6 +3,9 @@ name: Agent Capability Tests
 on: 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-host-outbound:
     runs-on: ubuntu-latest

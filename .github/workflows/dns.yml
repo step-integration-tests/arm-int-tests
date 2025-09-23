@@ -3,6 +3,9 @@ name: DNS Resolution Workflow
 on:
   workflow_dispatch:
   
+permissions:
+  contents: read
+
 jobs:
   dns-resolution:
     runs-on: ubuntu-latest
