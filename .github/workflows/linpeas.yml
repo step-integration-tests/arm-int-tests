@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: read
+
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -17,7 +20,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # rc
         with:
           egress-policy: audit
 
