@@ -1,0 +1,37 @@
+name: Broadcast IP Test - 2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  broadcast-test-hr-latest:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: step-security/harden-runner@int
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            archive.ubuntu.com:443
+            azure.archive.ubuntu.com:443
+            azure.archive.ubuntu.com:80
+            esm.ubuntu.com:443
+            packages.microsoft.com:443
+            security.ubuntu.com:443
+    
+      - name: Setup
+        run: |
+          sudo sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=0
+          sudo apt-get update && sudo apt-get install -y socat
+
+      - name: Start Broadcast Listener (background)
+        run: |
+          nohup socat -v UDP-RECVFROM:6000,broadcast,fork EXEC:'tee received.txt' &
+
+      - name: Send Broadcast
+        run: |
+          socat -v - UDP-DATAGRAM:255.255.255.255:6000,broadcast <<< "Hello from broadcast"
+
+      - name: Show Received Output
+        run: |
+          cat received.txt || echo "Nothing received"
