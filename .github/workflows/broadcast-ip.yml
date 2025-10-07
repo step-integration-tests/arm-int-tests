@@ -23,7 +23,6 @@ jobs:
         run: |
           sudo sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=0
           sudo apt-get update && sudo apt-get install -y socat
-          curl google.com
 
       - name: Start Broadcast Listener (background)
         run: |
