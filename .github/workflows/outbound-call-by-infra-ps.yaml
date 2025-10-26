@@ -3,11 +3,14 @@ name: Outbound network call by infra process
 on:
   workflow_dispatch: { }
 
+permissions:
+  contents: read
+
 jobs:
   outbound-call:
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@01071688477c6140fd21e39a41cfbd8b65bba65d # rc
         with:
           egress-policy: audit
 
@@ -38,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@01071688477c6140fd21e39a41cfbd8b65bba65d # rc
         with:
           egress-policy: block
           allowed-endpoints: >
