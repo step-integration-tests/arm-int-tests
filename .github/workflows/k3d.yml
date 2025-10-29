@@ -3,6 +3,9 @@ name: Set up Local Kubernetes with k3d and containerd
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   setup-k8s:
     runs-on: ubuntu-latest
