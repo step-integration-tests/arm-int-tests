@@ -3,6 +3,9 @@ name: k3s Outbound Connectivity Test
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   k3s-test:
     runs-on: ubuntu-latest

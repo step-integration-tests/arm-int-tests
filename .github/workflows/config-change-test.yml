@@ -2,6 +2,9 @@ name: Config change test
 on: 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-host-outbound:
     runs-on: ubuntu-latest
@@ -137,6 +140,11 @@ jobs:
     steps:
       
             
+
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
 
       - run: cat /etc/resolv.conf
       
