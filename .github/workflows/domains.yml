@@ -1,0 +1,3257 @@
+name: 800-domain
+run-name: 800-domain-${{ inputs.WorkflowFileID }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      RunnerLabel:
+        description: "Target ARC name used for runs-on in job"
+        required: true
+        default: "self-hosted"
+      WorkflowFileID:
+        description: "WorkflowID"
+        required: false
+        default: ""
+        
+jobs:
+  enum:
+    runs-on: ${{ inputs.RunnerLabel }}
+    steps:
+
+      - uses: step-security/harden-runner@v2
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            codeload.github.com:443
+            objects.githubusercontent.com:443
+            *.actions.githubusercontent.com:443
+            google.com:443
+            youtube.com:443
+            facebook.com:443
+            baidu.com:443
+            yahoo.com:443
+            amazon.com:443
+            wikipedia.org:443
+            google.co.in:443
+            twitter.com:443
+            qq.com:443
+            live.com:443
+            taobao.com:443
+            bing.com:443
+            google.co.jp:443
+            msn.com:443
+            yahoo.co.jp:443
+            linkedin.com:443
+            sina.com.cn:443
+            instagram.com:443
+            weibo.com:443
+            vk.com:443
+            yandex.ru:443
+            google.de:443
+            google.ru:443
+            hao123.com:443
+            ebay.com:443
+            reddit.com:443
+            google.co.uk:443
+            google.com.br:443
+            mail.ru:443
+            t.co:443
+            pinterest.com:443
+            amazon.co.jp:443
+            google.fr:443
+            netflix.com:443
+            gmw.cn:443
+            tmall.com:443
+            360.cn:443
+            google.it:443
+            microsoft.com:443
+            onclickads.net:443
+            google.es:443
+            paypal.com:443
+            sohu.com:443
+            wordpress.com:443
+            tumblr.com:443
+            blogspot.com:443
+            imgur.com:443
+            xvideos.com:443
+            google.com.mx:443
+            naver.com:443
+            stackoverflow.com:443
+            apple.com:443
+            chinadaily.com.cn:443
+            fc2.com:443
+            aliexpress.com:443
+            imdb.com:443
+            google.ca:443
+            google.co.kr:443
+            github.com:443
+            ok.ru:443
+            pornhub.com:443
+            google.com.hk:443
+            whatsapp.com:443
+            diply.com:443
+            jd.com:443
+            amazon.de:443
+            google.com.tr:443
+            rakuten.co.jp:443
+            craigslist.org:443
+            office.com:443
+            google.co.id:443
+            amazon.in:443
+            wiley.com:443
+            blogger.com:443
+            google.pl:443
+            nicovideo.jp:443
+            alibaba.com:443
+            soso.com:443
+            pixnet.net:443
+            google.com.au:443
+            go.com:443
+            amazon.co.uk:443
+            xhamster.com:443
+            dropbox.com:443
+            google.com.tw:443
+            outbrain.com:443
+            xinhuanet.com:443
+            cntv.cn:443
+            googleusercontent.com:443
+            cnn.com:443
+            ask.com:443
+            coccoc.com:443
+            booking.com:443
+            bbc.co.uk:443
+            popads.net:443
+            youth.cn:443
+            twitch.tv:443
+            wikia.com:443
+            legacy.com:443
+            quora.com:443
+            chase.com:443
+            adobe.com:443
+            163.com:443
+            360.com:443
+            haosou.com:443
+            google.com.pk:443
+            google.co.th:443
+            google.com.eg:443
+            google.com.ar:443
+            youku.com:443
+            google.com.sa:443
+            bbc.com:443
+            flipkart.com:443
+            alipay.com:443
+            bongacams.com:443
+            adf.ly:443
+            nytimes.com:443
+            google.nl:443
+            sogou.com:443
+            livedoor.jp:443
+            daum.net:443
+            txxx.com:443
+            amazon.cn:443
+            espn.go.com:443
+            ebay.co.uk:443
+            ettoday.net:443
+            bankofamerica.com:443
+            mynet.com:443
+            indiatimes.com:443
+            myway.com:443
+            bilibili.com:443
+            walmart.com:443
+            ebay.de:443
+            niuche.com:443
+            godaddy.com:443
+            dailymail.co.uk:443
+            buzzfeed.com:443
+            zillow.com:443
+            xnxx.com:443
+            salesforce.com:443
+            dailymotion.com:443
+            wellsfargo.com:443
+            detail.tmall.com:443
+            steampowered.com:443
+            steamcommunity.com:443
+            nametests.com:443
+            google.co.ve:443
+            theguardian.com:443
+            google.com.ua:443
+            indeed.com:443
+            ameblo.jp:443
+            aol.com:443
+            etsy.com:443
+            globo.com:443
+            google.co.za:443
+            yelp.com:443
+            genius.com:443
+            huffingtonpost.com:443
+            tudou.com:443
+            so.com:443
+            zhihu.com:443
+            soundcloud.com:443
+            tripadvisor.com:443
+            google.gr:443
+            duowan.com:443
+            avito.ru:443
+            onlinesbi.com:443
+            vice.com:443
+            cnzz.com:443
+            fandango.com:443
+            uol.com.br:443
+            bet365.com:443
+            weather.com:443
+            mediafire.com:443
+            uptodown.com:443
+            cnet.com:443
+            washingtonpost.com:443
+            gawker.com:443
+            goo.ne.jp:443
+            stackexchange.com:443
+            force.com:443
+            taboola.com:443
+            google.com.co:443
+            dmm.co.jp:443
+            tuberel.com:443
+            vimeo.com:443
+            google.com.ng:443
+            commentcamarche.net:443
+            feedly.com:443
+            theladbible.com:443
+            pixiv.net:443
+            redtube.com:443
+            detik.com:443
+            homedepot.com:443
+            torrentz.eu:443
+            slideshare.net:443
+            google.ro:443
+            taringa.net:443
+            foxnews.com:443
+            target.com:443
+            amazon.it:443
+            google.com.pe:443
+            flickr.com:443
+            hclips.com:443
+            google.be:443
+            amazon.fr:443
+            9gag.com:443
+            kakaku.com:443
+            blogspot.in:443
+            ikea.com:443
+            mega.nz:443
+            ifeng.com:443
+            udn.com:443
+            web.de:443
+            americanexpress.com:443
+            iqiyi.com:443
+            milanuncios.com:443
+            fbcdn.net:443
+            google.com.ph:443
+            orange.fr:443
+            g2a.com:443
+            google.com.sg:443
+            terraclicks.com:443
+            youm7.com:443
+            putlocker.is:443
+            tribunnews.com:443
+            gmx.net:443
+            youporn.com:443
+            deviantart.com:443
+            nih.gov:443
+            zol.com.cn:443
+            6pm.com:443
+            roblox.com:443
+            doubleclick.net:443
+            hdfcbank.com:443
+            ozock.com:443
+            tistory.com:443
+            capitalone.com:443
+            leboncoin.fr:443
+            douyu.com:443
+            google.cn:443
+            51.la:443
+            google.se:443
+            spotify.com:443
+            wikihow.com:443
+            onet.pl:443
+            babytree.com:443
+            w3schools.com:443
+            upornia.com:443
+            snapdeal.com:443
+            forbes.com:443
+            google.at:443
+            wix.com:443
+            bestbuy.com:443
+            livejournal.com:443
+            mozilla.org:443
+            indiamart.com:443
+            xfinity.com:443
+            handycafe.com:443
+            groupon.com:443
+            adnetworkperformance.com:443
+            onedio.com:443
+            thepiratebay.org:443
+            skype.com:443
+            github.io:443
+            allegro.pl:443
+            google.dz:443
+            google.com.vn:443
+            paytm.com:443
+            qvc.com:443
+            wikimedia.org:443
+            icicibank.com:443
+            t-online.de:443
+            popcash.net:443
+            telegraph.co.uk:443
+            usps.com:443
+            slither.io:443
+            wp.pl:443
+            blog.jp:443
+            google.ch:443
+            webtretho.com:443
+            politico.com:443
+            trello.com:443
+            google.pt:443
+            yesky.com:443
+            babycenter.com:443
+            huanqiu.com:443
+            eksisozluk.com:443
+            blastingnews.com:443
+            citi.com:443
+            shutterstock.com:443
+            rediff.com:443
+            files.wordpress.com:443
+            ups.com:443
+            1688.com:443
+            google.cl:443
+            bitauto.com:443
+            speedtest.net:443
+            pandora.com:443
+            adexc.net:443
+            imzog.com:443
+            google.ae:443
+            2ch.net:443
+            google.cz:443
+            whitepages.com:443
+            seznam.cz:443
+            ltn.com.tw:443
+            about.com:443
+            chaturbate.com:443
+            ebay-kleinanzeigen.de:443
+            slack.com:443
+            mercadolivre.com.br:443
+            google.co.il:443
+            doorblog.jp:443
+            goodreads.com:443
+            livejasmin.com:443
+            battle.net:443
+            softonic.com:443
+            accuweather.com:443
+            amazon.es:443
+            wordpress.org:443
+            mbc.net:443
+            slickdeals.net:443
+            icloud.com:443
+            uptobox.com:443
+            google.hu:443
+            kaskus.co.id:443
+            pixabay.com:443
+            fedex.com:443
+            ndtv.com:443
+            att.com:443
+            mlb.com:443
+            kompas.com:443
+            google.ie:443
+            giphy.com:443
+            usatoday.com:443
+            bedbathandbeyond.com:443
+            hulu.com:443
+            archive.org:443
+            sberbank.ru:443
+            media.tumblr.com:443
+            pinimg.com:443
+            messenger.com:443
+            sourceforge.net:443
+            oracle.com:443
+            hp.com:443
+            lowes.com:443
+            zendesk.com:443
+            viralthread.com:443
+            csdn.net:443
+            1905.com:443
+            internethaber.com:443
+            360doc.com:443
+            39.net:443
+            digikala.com:443
+            badoo.com:443
+            businessinsider.com:443
+            kinogo.co:443
+            weebly.com:443
+            samsung.com:443
+            abs-cbn.:443
+            hepsiburada.com:443
+            airbnb.com:443
+            sabah.com.tr:443
+            wordreference.com:443
+            hurriyet.com.:443
+            uefa.com:443
+            rambler.ru:443
+            51yes.com:443
+            cnnic.cn:443
+            webmd.com:443
+            ign.com:443
+            liputan6.com:443
+            dell.com:443
+            gizmodo.com:443
+            blogspot.com.br:443
+            bloomberg.com:443
+            blkget.com:443
+            gsmarena.com:443
+            evernote.com:443
+            verizonwireless.com:443
+            secureserver.net:443
+            repubblica.it:443
+            milliyet.com.tr:443
+            isanalyze.com:443
+            sharepoint.com:443
+            eastday.com:443
+            mailchimp.com:443
+            match.com:443
+            wowhead.com:443
+            medium.com:443
+            google.az:443
+            chosun.com:443
+            dmm.com:443
+            billdesk.com:443
+            wsj.com:443
+            naukri.com:443
+            kinopoisk.ru:443
+            friv.com:443
+            expedia.com:443
+            livedoor.biz:443
+            macys.com:443
+            avg.com:443
+            tube8.com:443
+            libero.it:443
+            intuit.com:443
+            google.no:443
+            google.fi:443
+            urdupoint.com:443
+            eonline.com:443
+            addthis.com:443
+            sahibinden.com:443
+            ancestry.com:443
+            likes.com:443
+            savefrom.net:443
+            haber7.com:443
+            answers.com:443
+            google.sk:443
+            kissanime.to:443
+            marca.com:443
+            k618.cn:443
+            ebay.in:443
+            telekom.com:443
+            wetransfer.com:443
+            adplxmd.com:443
+            spiegel.de:443
+            bild.de:443
+            livedoor.com:443
+            ouo.io:443
+            nownews.com:443
+            elpais.com:443
+            thesaurus.com:443
+            rt.com:443
+            amazon.ca:443
+            vox.com:443
+            ck101.com:443
+            independent.co.uk:443
+            reuters.com:443
+            google.dk:443
+            suning.com:443
+            daikynguyenvn.com:443
+            scribd.com:443
+            themeforest.net:443
+            lifebuzz.com:443
+            acfun.tv:443
+            box.com:443
+            newegg.com:443
+            nbcnews.com:443
+            rutracker.org:443
+            freepik.com:443
+            telegram.org:443
+            kapanlagi.com:443
+            goal.com:443
+            blogfa.com:443
+            southwest.com:443
+            openload.co:443
+            hm.com:443
+            kickstarter.com:443
+            banggood.com:443
+            thesportbible.com:443
+            engadget.com:443
+            impress.co.jp:443
+            kohls.com:443
+            playstation.com:443
+            clickadu.com:443
+            shopify.com:443
+            tabelog.com:443
+            mashable.com:443
+            upwork.com:443
+            espncricinfo.com:443
+            conservativetribune.com:443
+            siteadvisor.com:443
+            realtor.com:443
+            asos.com:443
+            quizlet.com:443
+            hatena.ne.jp:443
+            usaa.com:443
+            xe.com:443
+            olx.pl:443
+            videomega.tv:443
+            ameba.jp:443
+            atlassian.net:443
+            sh.st:443
+            ebay.it:443
+            ctrip.com:443
+            costco.com:443
+            albawabhnews.com:443
+            hatenablog.com:443
+            gismeteo.ru:443
+            souq.com:443
+            google.by:443
+            gofundme.com:443
+            yallakora.com:443
+            abcnews.go.com:443
+            baike.com:443
+            moneycontrol.com:443
+            lifehacker.com:443
+            wunderground.com:443
+            hotels.com:443
+            zippyshare.com:443
+            zoho.com:443
+            discovercard.com:443
+            fidelity.com:443
+            cnblogs.com:443
+            zomato.com:443
+            jabong.com:443
+            digitaltrends.com:443
+            nikkei.com:443
+            4shared.com:443
+            hubspot.com:443
+            hespress.com:443
+            theverge.com:443
+            exoclick.com:443
+            bhaskar.com:443
+            gamer.com.tw:443
+            webex.com:443
+            neobux.com:443
+            elmogaz.com:443
+            gap.com:443
+            gamepedia.com:443
+            gamersky.com:443
+            okezone.com:443
+            gamefaqs.com:443
+            infusionsoft.com:443
+            ebay.com.au:443
+            clipconverter.cc:443
+            umblr.com:443
+            ibm.com:443
+            ticketmaster.com:443
+            mercadolibre.com.ar:443
+            beeg.com:443
+            behance.net:443
+            surveymonkey.com:443
+            rbc.ru:443
+            mcafee.com:443
+            ca.gov:443
+            trulia.com:443
+            zing.vn:443
+            elmundo.es:443
+            mi.com:443
+            aparat.com:443
+            free.fr:443
+            airtel.in:443
+            blackboard.com:443
+            meetup.com:443
+            trackingclick.net:443
+            google.bg:443
+            google.lk:443
+            adidas.tmall.com:443
+            nordstrom.com:443
+            merdeka.com:443
+            ultimate-guitar.com:443
+            nike.com:443
+            list.tmall.com:443
+            seesaa.net:443
+            blogspot.jp:443
+            allrecipes.com:443
+            google.kz:443
+            huaban.com:443
+            nifty.com:443
+            fiverr.com:443
+            donga.com:443
+            mobile.de:443
+            npr.org:443
+            kooora.com:443
+            wayfair.com:443
+            coursera.org:443
+            to8to.com:443
+            tutorialspoint.com:443
+            panda.tv:443
+            lenta.ru:443
+            weblio.jp:443
+            xda-developers.com:443
+            asahi.com:443
+            google.com.kw:443
+            thefreedictionary.com:443
+            adp.com:443
+            kayak.com:443
+            intel.com:443
+            kijiji.ca:443
+            youdao.com:443
+            korabia.com:443
+            chaoshi.tmall.com:443
+            thedailybeast.com:443
+            drudgereport.com:443
+            eventbrite.com:443
+            hotstar.com:443
+            tradeadexchange.com:443
+            hdzog.com:443
+            change.org:443
+            hootsuite.com:443
+            dictionary.com:443
+            makemytrip.com:443
+            brightonclick.com:443
+            streamcloud.eu:443
+            norton.com:443
+            cctv.com:443
+            watsons.tmall.com:443
+            prothom-alo.com:443
+            researchgate.net:443
+            ebates.com:443
+            hotmovs.com:443
+            olx.in:443
+            sakura.ne.jp:443
+            bookmyshow.com:443
+            subscene.com:443
+            le.com:443
+            emol.com:443
+            justdial.com:443
+            11st.co.kr:443
+            cookpad.com:443
+            retailmenot.com:443
+            thewatchseries.to:443
+            basecamp.com:443
+            slimspots.com:443
+            corriere.it:443
+            gmarket.co.kr:443
+            overstock.com:443
+            asus.com:443
+            y8.com:443
+            dcinside.com:443
+            momoshop.com.tw:443
+            woot.com:443
+            shopclues.com:443
+            csgolounge.com:443
+            disqus.com:443
+            so-net.ne.jp:443
+            wattpad.com:443
+            gmanetwork.com:443
+            cbsnews.com:443
+            leagueoflegends.com:443
+            uber.com:443
+            ryanair.com:443
+            patch.com:443
+            4399.com:443
+            adbooth.com:443
+            sabq.org:443
+            dropbooks.tv:443
+            www.gov.uk:443
+            udemy.com:443
+            cnmo.com:443
+            bleacherreport.com:443
+            aa.com:443
+            lapatilla.com:443
+            instructables.com:443
+            clien.net:443
+            ew.com:443
+            nba.com:443
+            mirror.co.uk:443
+            interia.pl:443
+            marketwatch.com:443
+            ensonhaber.com:443
+            yadi.sk:443
+            line.me:443
+            mercadolibre.com.ve:443
+            e-hentai.org:443
+            uploaded.net:443
+            verizon.com:443
+            pnc.com:443
+            namu.wiki:443
+            yodobashi.com:443
+            heroquizz.com:443
+            latimes.com:443
+            123cha.com:443
+            pof.com:443
+            eyny.com:443
+            azlyrics.com:443
+            aliyun.com:443
+            people.com:443
+            yandex.com.tr:443
+            rottentomatoes.com:443
+            104.com.tw:443
+            houzz.com:443
+            time.com:443
+            cisco.com:443
+            ppomppu.co.kr:443
+            cbssports.com:443
+            biglobe.ne.jp:443
+            jrj.com.cn:443
+            xunlei.com:443
+            lenovo.com:443
+            usbank.com:443
+            vk.me:443
+            zulily.com:443
+            asana.com:443
+            youboy.com:443
+            zone-telechargement.com:443
+            glassdoor.com:443
+            seasonvar.ru:443
+            nikkeibp.co.jp:443
+            investing.com:443
+            google.com.do:443
+            united.com:443
+            teepr.com:443
+            indianexpress.com:443
+            wikiwiki.jp:443
+            pch.com:443
+            jimdo.com:443
+            oeeee.com:443
+            gyazo.com:443
+            myfitnesspal.com:443
+            yts.ag:443
+            breitbart.com:443
+            123rf.com:443
+            nextdoor.com:443
+            voc.com.cn:443
+            cnbc.com:443
+            sears.com:443
+            bs.to:443
+            itmedia.co.jp:443
+            thekitchn.com:443
+            bomb01.com:443
+            slate.com:443
+            google.com.my:443
+            4chan.org:443
+            biobiochile.cl:443
+            google.co.nz:443
+            okcupid.com:443
+            google.rs:443
+            instructure.com:443
+            intoday.in:443
+            stumbleupon.com:443
+            chinaso.com:443
+            squarespace.com:443
+            fitbit.com:443
+            photobucket.com:443
+            eskimi.com:443
+            mixi.jp:443
+            4dsply.com:443
+            thatviralfeed.com:443
+            pantip.com:443
+            as.com:443
+            elfagr.org:443
+            3dmgame.com:443
+            howtogeek.com:443
+            aastocks.com:443
+            manoramaonline.com:443
+            chron.com:443
+            inquirer.net:443
+            t-mobile.com:443
+            xbox.com:443
+            meaww.com:443
+            pogo.com:443
+            redfin.com:443
+            buy.tmall.com:443
+            drom.ru:443
+            infoseek.co.jp:443
+            buzzfil.net:443
+            urbandictionary.com:443
+            mit.edu:443
+            olx.com.br:443
+            chinaz.com:443
+            chip.de:443
+            panet.co.il:443
+            gamespot.com:443
+            google.com.ec:443
+            subito.it:443
+            gazetaexpress.com:443
+            zara.com:443
+            swagbucks.com:443
+            tmz.com:443
+            nexusmods.com:443
+            tsite.jp:443
+            timeanddate.com:443
+            discuss.com.hk:443
+            quanjing.com:443
+            bhphotovideo.com:443
+            lequipe.fr:443
+            superuser.com:443
+            ero-advertising.com:443
+            myntra.com:443
+            cdiscount.com:443
+            issuu.com:443
+            filehippo.com:443
+            vporn.com:443
+            quikr.com:443
+            126.com:443
+            gameforge.com:443
+            twoo.com:443
+            microsoftstore.com:443
+            java.com:443
+            blogspot.mx:443
+            spankbang.com:443
+            discover.com:443
+            bt.com:443
+            agar.io:443
+            priceline.com:443
+            mercadolibre.com.mx:443
+            atwiki.jp:443
+            audible.com:443
+            mynavi.jp:443
+            vodlocker.com:443
+            sky.com:443
+            sciencedirect.com:443
+            gigazine.net:443
+            olx.ua:443
+            abs-cbn.com:443
+            hurriyet.com.tr:443
+            android.com
+
+      - name: do google
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com"
+
+      - name: do microsoft
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://microsoft.com"
+
+      - name: do youtube.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youtube.com"
+
+      - name: do facebook.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://facebook.com"
+
+      - name: do baidu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://baidu.com"
+
+      - name: do yahoo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yahoo.com"
+
+      - name: do amazon.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.com"
+
+      - name: do wikipedia.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wikipedia.org"
+
+      - name: do google.co.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.in"
+
+      - name: do twitter.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://twitter.com"
+
+      - name: do qq.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://qq.com"
+
+      - name: do live.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://live.com"
+
+      - name: do taobao.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://taobao.com"
+
+      - name: do bing.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bing.com"
+
+      - name: do google.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.jp"
+
+      - name: do msn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://msn.com"
+
+      - name: do yahoo.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yahoo.co.jp"
+
+      - name: do linkedin.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://linkedin.com"
+
+      - name: do sina.com.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sina.com.cn"
+
+      - name: do instagram.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://instagram.com"
+
+      - name: do weibo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://weibo.com"
+
+      - name: do vk.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vk.com"
+
+      - name: do yandex.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yandex.ru"
+
+      - name: do google.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.de"
+
+      - name: do google.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.ru"
+
+      - name: do hao123.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hao123.com"
+
+      - name: do ebay.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay.com"
+
+      - name: do reddit.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://reddit.com"
+
+      - name: do google.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.uk"
+
+      - name: do google.com.br
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.br"
+
+      - name: do mail.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mail.ru"
+
+      - name: do t.co
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://t.co"
+
+      - name: do pinterest.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pinterest.com"
+
+      - name: do amazon.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.co.jp"
+      - name: do google.fr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.fr"
+      - name: do netflix.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://netflix.com"
+      - name: do gmw.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gmw.cn"
+      - name: do tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tmall.com"
+      - name: do 360.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://360.cn"
+      - name: do google.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.it"
+      - name: do onclickads.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://onclickads.net"
+      - name: do google.es
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.es"
+      - name: do paypal.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://paypal.com"
+      - name: do sohu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sohu.com"
+      - name: do wordpress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wordpress.com"
+      - name: do tumblr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tumblr.com"
+      - name: do blogspot.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogspot.com"
+      - name: do imgur.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://imgur.com"
+      - name: do xvideos.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xvideos.com"
+      - name: do google.com.mx
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.mx"
+      - name: do naver.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://naver.com"
+      - name: do stackoverflow.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://stackoverflow.com"
+      - name: do apple.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://apple.com"
+      - name: do chinadaily.com.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chinadaily.com.cn"
+      - name: do fc2.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fc2.com"
+      - name: do aliexpress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://aliexpress.com"
+      - name: do imdb.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://imdb.com"
+      - name: do google.ca
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.ca"
+      - name: do google.co.kr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.kr"
+      - name: do github.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://github.com"
+      - name: do ok.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ok.ru"
+      - name: do pornhub.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pornhub.com"
+      - name: do google.com.hk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.hk"
+      - name: do whatsapp.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://whatsapp.com"
+      - name: do diply.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://diply.com"
+      - name: do jd.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://jd.com"
+      - name: do amazon.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.de"
+      - name: do google.com.tr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.tr"
+      - name: do rakuten.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rakuten.co.jp"
+      - name: do craigslist.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://craigslist.org"
+      - name: do office.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://office.com"
+      - name: do google.co.id
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.id"
+      - name: do amazon.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.in"
+      - name: do wiley.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wiley.com"
+      - name: do blogger.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogger.com"
+      - name: do google.pl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.pl"
+      - name: do nicovideo.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nicovideo.jp"
+      - name: do alibaba.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://alibaba.com"
+      - name: do soso.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://soso.com"
+      - name: do pixnet.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pixnet.net"
+      - name: do google.com.au
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.au"
+      - name: do go.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://go.com"
+      - name: do amazon.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.co.uk"
+      - name: do xhamster.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xhamster.com"
+      - name: do dropbox.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dropbox.com"
+      - name: do google.com.tw
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.tw"
+      - name: do outbrain.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://outbrain.com"
+      - name: do xinhuanet.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xinhuanet.com"
+      - name: do cntv.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cntv.cn"
+      - name: do googleusercontent.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://googleusercontent.com"
+      - name: do cnn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnn.com"
+      - name: do ask.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ask.com"
+      - name: do coccoc.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://coccoc.com"
+      - name: do booking.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://booking.com"
+      - name: do bbc.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bbc.co.uk"
+      - name: do popads.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://popads.net"
+      - name: do youth.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youth.cn"
+      - name: do twitch.tv
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://twitch.tv"
+      - name: do wikia.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wikia.com"
+      - name: do legacy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://legacy.com"
+      - name: do quora.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://quora.com"
+      - name: do chase.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chase.com"
+      - name: do adobe.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adobe.com"
+      - name: do 163.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://163.com"
+      - name: do 360.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://360.com"
+      - name: do haosou.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://haosou.com"
+      - name: do google.com.pk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.pk"
+      - name: do google.co.th
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.th"
+      - name: do google.com.eg
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.eg"
+      - name: do google.com.ar
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.ar"
+      - name: do youku.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youku.com"
+      - name: do google.com.sa
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.sa"
+      - name: do bbc.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bbc.com"
+      - name: do flipkart.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://flipkart.com"
+      - name: do alipay.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://alipay.com"
+      - name: do bongacams.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bongacams.com"
+      - name: do adf.ly
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adf.ly"
+      - name: do nytimes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nytimes.com"
+      - name: do google.nl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.nl"
+      - name: do sogou.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sogou.com"
+      - name: do livedoor.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://livedoor.jp"
+      - name: do daum.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://daum.net"
+      - name: do txxx.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://txxx.com"
+      - name: do amazon.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.cn"
+      - name: do espn.go.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://espn.go.com"
+      - name: do ebay.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay.co.uk"
+      - name: do ettoday.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ettoday.net"
+      - name: do bankofamerica.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bankofamerica.com"
+      - name: do mynet.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mynet.com"
+      - name: do indiatimes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://indiatimes.com"
+      - name: do myway.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://myway.com"
+      - name: do bilibili.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bilibili.com"
+      - name: do walmart.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://walmart.com"
+      - name: do ebay.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay.de"
+      - name: do niuche.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://niuche.com"
+      - name: do godaddy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://godaddy.com"
+      - name: do dailymail.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dailymail.co.uk"
+      - name: do buzzfeed.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://buzzfeed.com"
+      - name: do zillow.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zillow.com"
+      - name: do xnxx.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xnxx.com"
+      - name: do salesforce.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://salesforce.com"
+      - name: do dailymotion.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dailymotion.com"
+      - name: do wellsfargo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wellsfargo.com"
+      - name: do detail.tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://detail.tmall.com"
+      - name: do steampowered.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://steampowered.com"
+      - name: do steamcommunity.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://steamcommunity.com"
+      - name: do nametests.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nametests.com"
+      - name: do google.co.ve
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.ve"
+      - name: do theguardian.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://theguardian.com"
+      - name: do google.com.ua
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.ua"
+      - name: do indeed.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://indeed.com"
+      - name: do ameblo.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ameblo.jp"
+      - name: do aol.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://aol.com"
+      - name: do etsy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://etsy.com"
+      - name: do globo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://globo.com"
+      - name: do google.co.za
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.za"
+      - name: do yelp.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yelp.com"
+      - name: do genius.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://genius.com"
+      - name: do huffingtonpost.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://huffingtonpost.com"
+      - name: do tudou.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tudou.com"
+      - name: do so.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://so.com"
+      - name: do zhihu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zhihu.com"
+      - name: do soundcloud.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://soundcloud.com"
+      - name: do tripadvisor.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tripadvisor.com"
+      - name: do google.gr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.gr"
+      - name: do duowan.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://duowan.com"
+      - name: do avito.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://avito.ru"
+      - name: do onlinesbi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://onlinesbi.com"
+      - name: do vice.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vice.com"
+      - name: do cnzz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnzz.com"
+      - name: do fandango.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fandango.com"
+      - name: do uol.com.br
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://uol.com.br"
+      - name: do bet365.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bet365.com"
+      - name: do weather.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://weather.com"
+      - name: do mediafire.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mediafire.com"
+      - name: do uptodown.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://uptodown.com"
+      - name: do cnet.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnet.com"
+      - name: do washingtonpost.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://washingtonpost.com"
+      - name: do gawker.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gawker.com"
+      - name: do goo.ne.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://goo.ne.jp"
+      - name: do stackexchange.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://stackexchange.com"
+      - name: do force.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://force.com"
+      - name: do taboola.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://taboola.com"
+      - name: do google.com.co
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.co"
+      - name: do dmm.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dmm.co.jp"
+      - name: do tuberel.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tuberel.com"
+      - name: do vimeo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vimeo.com"
+      - name: do google.com.ng
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.ng"
+      - name: do commentcamarche.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://commentcamarche.net"
+      - name: do feedly.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://feedly.com"
+      - name: do theladbible.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://theladbible.com"
+      - name: do pixiv.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pixiv.net"
+      - name: do redtube.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://redtube.com"
+      - name: do detik.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://detik.com"
+      - name: do homedepot.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://homedepot.com"
+      - name: do torrentz.eu
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://torrentz.eu"
+      - name: do slideshare.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://slideshare.net"
+      - name: do google.ro
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.ro"
+      - name: do taringa.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://taringa.net"
+      - name: do foxnews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://foxnews.com"
+      - name: do target.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://target.com"
+      - name: do amazon.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.it"
+      - name: do google.com.pe
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.pe"
+      - name: do flickr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://flickr.com"
+      - name: do hclips.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hclips.com"
+      - name: do google.be
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.be"
+      - name: do amazon.fr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.fr"
+      - name: do 9gag.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://9gag.com"
+      - name: do kakaku.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kakaku.com"
+      - name: do blogspot.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogspot.in"
+      - name: do ikea.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ikea.com"
+      - name: do mega.nz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mega.nz"
+      - name: do ifeng.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ifeng.com"
+      - name: do udn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://udn.com"
+      - name: do web.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://web.de"
+      - name: do americanexpress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://americanexpress.com"
+      - name: do iqiyi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://iqiyi.com"
+      - name: do milanuncios.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://milanuncios.com"
+      - name: do fbcdn.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fbcdn.net"
+      - name: do google.com.ph
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.ph"
+      - name: do orange.fr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://orange.fr"
+      - name: do g2a.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://g2a.com"
+      - name: do google.com.sg
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.sg"
+      - name: do terraclicks.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://terraclicks.com"
+      - name: do youm7.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youm7.com"
+      - name: do putlocker.is
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://putlocker.is"
+      - name: do tribunnews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tribunnews.com"
+      - name: do gmx.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gmx.net"
+      - name: do youporn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youporn.com"
+      - name: do deviantart.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://deviantart.com"
+      - name: do nih.gov
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nih.gov"
+      - name: do zol.com.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zol.com.cn"
+      - name: do 6pm.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://6pm.com"
+      - name: do roblox.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://roblox.com"
+      - name: do doubleclick.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://doubleclick.net"
+      - name: do hdfcbank.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hdfcbank.com"
+      - name: do ozock.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ozock.com"
+      - name: do tistory.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tistory.com"
+      - name: do capitalone.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://capitalone.com"
+      - name: do leboncoin.fr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://leboncoin.fr"
+      - name: do douyu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://douyu.com"
+      - name: do google.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.cn"
+      - name: do 51.la
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://51.la"
+      - name: do google.se
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.se"
+      - name: do spotify.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://spotify.com"
+      - name: do wikihow.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wikihow.com"
+      - name: do onet.pl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://onet.pl"
+      - name: do babytree.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://babytree.com"
+      - name: do w3schools.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://w3schools.com"
+      - name: do upornia.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://upornia.com"
+      - name: do snapdeal.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://snapdeal.com"
+      - name: do forbes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://forbes.com"
+      - name: do google.at
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.at"
+      - name: do wix.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wix.com"
+      - name: do bestbuy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bestbuy.com"
+      - name: do livejournal.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://livejournal.com"
+      - name: do mozilla.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mozilla.org"
+      - name: do indiamart.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://indiamart.com"
+      - name: do xfinity.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xfinity.com"
+      - name: do handycafe.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://handycafe.com"
+      - name: do groupon.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://groupon.com"
+      - name: do adnetworkperformance.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adnetworkperformance.com"
+      - name: do onedio.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://onedio.com"
+      - name: do thepiratebay.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thepiratebay.org"
+      - name: do skype.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://skype.com"
+      - name: do github.io
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://github.io"
+      - name: do allegro.pl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://allegro.pl"
+      - name: do google.dz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.dz"
+      - name: do google.com.vn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.vn"
+      - name: do paytm.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://paytm.com"
+      - name: do qvc.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://qvc.com"
+      - name: do wikimedia.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wikimedia.org"
+      - name: do icicibank.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://icicibank.com"
+      - name: do t-online.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://t-online.de"
+      - name: do android.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://android.com"
+      - name: do popcash.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://popcash.net"
+      - name: do telegraph.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://telegraph.co.uk"
+      - name: do usps.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://usps.com"
+      - name: do slither.io
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://slither.io"
+      - name: do wp.pl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wp.pl"
+      - name: do blog.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blog.jp"
+      - name: do google.ch
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.ch"
+      - name: do webtretho.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://webtretho.com"
+      - name: do politico.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://politico.com"
+      - name: do trello.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://trello.com"
+      - name: do google.pt
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.pt"
+      - name: do yesky.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yesky.com"
+      - name: do babycenter.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://babycenter.com"
+      - name: do huanqiu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://huanqiu.com"
+      - name: do eksisozluk.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://eksisozluk.com"
+      - name: do blastingnews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blastingnews.com"
+      - name: do citi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://citi.com"
+      - name: do shutterstock.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://shutterstock.com"
+      - name: do rediff.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rediff.com"
+      - name: do files.wordpress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://files.wordpress.com"
+      - name: do ups.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ups.com"
+      - name: do 1688.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://1688.com"
+      - name: do google.cl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.cl"
+      - name: do bitauto.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bitauto.com"
+      - name: do speedtest.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://speedtest.net"
+      - name: do pandora.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pandora.com"
+      - name: do adexc.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adexc.net"
+      - name: do imzog.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://imzog.com"
+      - name: do google.ae
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.ae"
+      - name: do 2ch.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://2ch.net"
+      - name: do google.cz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.cz"
+      - name: do whitepages.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://whitepages.com"
+      - name: do seznam.cz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://seznam.cz"
+      - name: do ltn.com.tw
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ltn.com.tw"
+      - name: do about.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://about.com"
+      - name: do chaturbate.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chaturbate.com"
+      - name: do ebay-kleinanzeigen.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay-kleinanzeigen.de"
+      - name: do slack.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://slack.com"
+      - name: do mercadolivre.com.br
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mercadolivre.com.br"
+      - name: do google.co.il
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.il"
+      - name: do doorblog.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://doorblog.jp"
+      - name: do goodreads.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://goodreads.com"
+      - name: do livejasmin.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://livejasmin.com"
+      - name: do battle.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://battle.net"
+      - name: do softonic.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://softonic.com"
+      - name: do accuweather.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://accuweather.com"
+      - name: do amazon.es
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.es"
+      - name: do wordpress.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wordpress.org"
+      - name: do mbc.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mbc.net"
+      - name: do slickdeals.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://slickdeals.net"
+      - name: do icloud.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://icloud.com"
+      - name: do uptobox.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://uptobox.com"
+      - name: do google.hu
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.hu"
+      - name: do kaskus.co.id
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kaskus.co.id"
+      - name: do pixabay.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pixabay.com"
+      - name: do fedex.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fedex.com"
+      - name: do ndtv.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ndtv.com"
+      - name: do att.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://att.com"
+      - name: do mlb.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mlb.com"
+      - name: do kompas.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kompas.com"
+      - name: do google.ie
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.ie"
+      - name: do giphy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://giphy.com"
+      - name: do usatoday.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://usatoday.com"
+      - name: do bedbathandbeyond.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bedbathandbeyond.com"
+      - name: do hulu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hulu.com"
+      - name: do archive.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://archive.org"
+      - name: do sberbank.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sberbank.ru"
+      - name: do media.tumblr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://media.tumblr.com"
+      - name: do pinimg.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pinimg.com"
+      - name: do messenger.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://messenger.com"
+      - name: do sourceforge.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sourceforge.net"
+      - name: do oracle.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://oracle.com"
+      - name: do hp.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hp.com"
+      - name: do lowes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lowes.com"
+      - name: do zendesk.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zendesk.com"
+      - name: do viralthread.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://viralthread.com"
+      - name: do csdn.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://csdn.net"
+      - name: do 1905.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://1905.com"
+      - name: do internethaber.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://internethaber.com"
+      - name: do 360doc.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://360doc.com"
+      - name: do 39.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://39.net"
+      - name: do digikala.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://digikala.com"
+      - name: do badoo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://badoo.com"
+      - name: do businessinsider.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://businessinsider.com"
+      - name: do kinogo.co
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kinogo.co"
+      - name: do weebly.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://weebly.com"
+      - name: do samsung.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://samsung.com"
+      - name: do abs-cbn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://abs-cbn.com"
+      - name: do hepsiburada.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hepsiburada.com"
+      - name: do airbnb.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://airbnb.com"
+      - name: do sabah.com.tr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sabah.com.tr"
+      - name: do wordreference.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wordreference.com"
+      - name: do hurriyet.com.tr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hurriyet.com.tr"
+      - name: do uefa.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://uefa.com"
+      - name: do rambler.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rambler.ru"
+      - name: do 51yes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://51yes.com"
+      - name: do cnnic.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnnic.cn"
+      - name: do webmd.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://webmd.com"
+      - name: do ign.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ign.com"
+      - name: do liputan6.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://liputan6.com"
+      - name: do dell.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dell.com"
+      - name: do gizmodo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gizmodo.com"
+      - name: do blogspot.com.br
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogspot.com.br"
+      - name: do bloomberg.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bloomberg.com"
+      - name: do blkget.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blkget.com"
+      - name: do gsmarena.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gsmarena.com"
+      - name: do evernote.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://evernote.com"
+      - name: do verizonwireless.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://verizonwireless.com"
+      - name: do secureserver.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://secureserver.net"
+      - name: do repubblica.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://repubblica.it"
+      - name: do milliyet.com.tr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://milliyet.com.tr"
+      - name: do isanalyze.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://isanalyze.com"
+      - name: do sharepoint.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sharepoint.com"
+      - name: do eastday.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://eastday.com"
+      - name: do mailchimp.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mailchimp.com"
+      - name: do match.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://match.com"
+      - name: do wowhead.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wowhead.com"
+      - name: do medium.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://medium.com"
+      - name: do google.az
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.az"
+      - name: do chosun.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chosun.com"
+      - name: do dmm.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dmm.com"
+      - name: do billdesk.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://billdesk.com"
+      - name: do wsj.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wsj.com"
+      - name: do naukri.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://naukri.com"
+      - name: do kinopoisk.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kinopoisk.ru"
+      - name: do friv.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://friv.com"
+      - name: do expedia.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://expedia.com"
+      - name: do livedoor.biz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://livedoor.biz"
+      - name: do macys.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://macys.com"
+      - name: do avg.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://avg.com"
+      - name: do tube8.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tube8.com"
+      - name: do libero.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://libero.it"
+      - name: do intuit.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://intuit.com"
+      - name: do google.no
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.no"
+      - name: do google.fi
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.fi"
+      - name: do urdupoint.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://urdupoint.com"
+      - name: do eonline.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://eonline.com"
+      - name: do addthis.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://addthis.com"
+      - name: do sahibinden.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sahibinden.com"
+      - name: do ancestry.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ancestry.com"
+      - name: do likes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://likes.com"
+      - name: do savefrom.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://savefrom.net"
+      - name: do haber7.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://haber7.com"
+      - name: do answers.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://answers.com"
+      - name: do google.sk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.sk"
+      - name: do kissanime.to
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kissanime.to"
+      - name: do marca.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://marca.com"
+      - name: do k618.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://k618.cn"
+      - name: do ebay.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay.in"
+      - name: do telekom.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://telekom.com"
+      - name: do wetransfer.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wetransfer.com"
+      - name: do adplxmd.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adplxmd.com"
+      - name: do spiegel.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://spiegel.de"
+      - name: do bild.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bild.de"
+      - name: do livedoor.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://livedoor.com"
+      - name: do ouo.io
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ouo.io"
+      - name: do nownews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nownews.com"
+      - name: do elpais.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://elpais.com"
+      - name: do thesaurus.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thesaurus.com"
+      - name: do rt.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rt.com"
+      - name: do amazon.ca
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://amazon.ca"
+      - name: do vox.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vox.com"
+      - name: do ck101.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ck101.com"
+      - name: do independent.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://independent.co.uk"
+      - name: do reuters.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://reuters.com"
+      - name: do google.dk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.dk"
+      - name: do suning.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://suning.com"
+      - name: do daikynguyenvn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://daikynguyenvn.com"
+      - name: do scribd.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://scribd.com"
+      - name: do themeforest.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://themeforest.net"
+      - name: do lifebuzz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lifebuzz.com"
+      - name: do acfun.tv
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://acfun.tv"
+      - name: do box.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://box.com"
+      - name: do newegg.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://newegg.com"
+      - name: do nbcnews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nbcnews.com"
+      - name: do rutracker.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rutracker.org"
+      - name: do freepik.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://freepik.com"
+      - name: do telegram.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://telegram.org"
+      - name: do kapanlagi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kapanlagi.com"
+      - name: do goal.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://goal.com"
+      - name: do blogfa.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogfa.com"
+      - name: do southwest.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://southwest.com"
+      - name: do openload.co
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://openload.co"
+      - name: do hm.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hm.com"
+      - name: do kickstarter.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kickstarter.com"
+      - name: do banggood.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://banggood.com"
+      - name: do thesportbible.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thesportbible.com"
+      - name: do engadget.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://engadget.com"
+      - name: do impress.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://impress.co.jp"
+      - name: do kohls.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kohls.com"
+      - name: do playstation.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://playstation.com"
+      - name: do clickadu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://clickadu.com"
+      - name: do shopify.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://shopify.com"
+      - name: do tabelog.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tabelog.com"
+      - name: do mashable.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mashable.com"
+      - name: do upwork.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://upwork.com"
+      - name: do espncricinfo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://espncricinfo.com"
+      - name: do conservativetribune.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://conservativetribune.com"
+      - name: do siteadvisor.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://siteadvisor.com"
+      - name: do realtor.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://realtor.com"
+      - name: do asos.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://asos.com"
+      - name: do quizlet.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://quizlet.com"
+      - name: do hatena.ne.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hatena.ne.jp"
+      - name: do usaa.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://usaa.com"
+      - name: do xe.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xe.com"
+      - name: do olx.pl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://olx.pl"
+      - name: do videomega.tv
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://videomega.tv"
+      - name: do ameba.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ameba.jp"
+      - name: do atlassian.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://atlassian.net"
+      - name: do sh.st
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sh.st"
+      - name: do ebay.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay.it"
+      - name: do ctrip.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ctrip.com"
+      - name: do costco.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://costco.com"
+      - name: do albawabhnews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://albawabhnews.com"
+      - name: do hatenablog.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hatenablog.com"
+      - name: do gismeteo.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gismeteo.ru"
+      - name: do souq.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://souq.com"
+      - name: do google.by
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.by"
+      - name: do gofundme.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gofundme.com"
+      - name: do yallakora.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yallakora.com"
+      - name: do abcnews.go.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://abcnews.go.com"
+      - name: do baike.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://baike.com"
+      - name: do moneycontrol.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://moneycontrol.com"
+      - name: do lifehacker.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lifehacker.com"
+      - name: do wunderground.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wunderground.com"
+      - name: do hotels.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hotels.com"
+      - name: do zippyshare.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zippyshare.com"
+      - name: do zoho.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zoho.com"
+      - name: do discovercard.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://discovercard.com"
+      - name: do fidelity.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fidelity.com"
+      - name: do cnblogs.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnblogs.com"
+      - name: do zomato.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zomato.com"
+      - name: do jabong.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://jabong.com"
+      - name: do digitaltrends.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://digitaltrends.com"
+      - name: do nikkei.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nikkei.com"
+      - name: do 4shared.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://4shared.com"
+      - name: do hubspot.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hubspot.com"
+      - name: do hespress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hespress.com"
+      - name: do theverge.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://theverge.com"
+      - name: do exoclick.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://exoclick.com"
+      - name: do bhaskar.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bhaskar.com"
+      - name: do gamer.com.tw
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gamer.com.tw"
+      - name: do webex.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://webex.com"
+      - name: do neobux.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://neobux.com"
+      - name: do elmogaz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://elmogaz.com"
+      - name: do gap.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gap.com"
+      - name: do gamepedia.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gamepedia.com"
+      - name: do gamersky.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gamersky.com"
+      - name: do okezone.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://okezone.com"
+      - name: do gamefaqs.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gamefaqs.com"
+      - name: do infusionsoft.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://infusionsoft.com"
+      - name: do ebay.com.au
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebay.com.au"
+      - name: do clipconverter.cc
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://clipconverter.cc"
+      - name: do umblr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://umblr.com"
+      - name: do ibm.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ibm.com"
+      - name: do ticketmaster.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ticketmaster.com"
+      - name: do mercadolibre.com.ar
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mercadolibre.com.ar"
+      - name: do beeg.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://beeg.com"
+      - name: do behance.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://behance.net"
+      - name: do surveymonkey.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://surveymonkey.com"
+      - name: do rbc.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rbc.ru"
+      - name: do mcafee.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mcafee.com"
+      - name: do ca.gov
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ca.gov"
+      - name: do trulia.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://trulia.com"
+      - name: do zing.vn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zing.vn"
+      - name: do elmundo.es
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://elmundo.es"
+      - name: do mi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mi.com"
+      - name: do aparat.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://aparat.com"
+      - name: do free.fr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://free.fr"
+      - name: do airtel.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://airtel.in"
+      - name: do blackboard.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blackboard.com"
+      - name: do meetup.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://meetup.com"
+      - name: do trackingclick.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://trackingclick.net"
+      - name: do google.bg
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.bg"
+      - name: do google.lk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.lk"
+      - name: do adidas.tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adidas.tmall.com"
+      - name: do nordstrom.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nordstrom.com"
+      - name: do merdeka.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://merdeka.com"
+      - name: do ultimate-guitar.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ultimate-guitar.com"
+      - name: do nike.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nike.com"
+      - name: do list.tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://list.tmall.com"
+      - name: do seesaa.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://seesaa.net"
+      - name: do blogspot.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogspot.jp"
+      - name: do allrecipes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://allrecipes.com"
+      - name: do google.kz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.kz"
+      - name: do huaban.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://huaban.com"
+      - name: do nifty.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nifty.com"
+      - name: do fiverr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fiverr.com"
+      - name: do donga.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://donga.com"
+      - name: do mobile.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mobile.de"
+      - name: do npr.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://npr.org"
+      - name: do kooora.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kooora.com"
+      - name: do wayfair.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wayfair.com"
+      - name: do coursera.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://coursera.org"
+      - name: do to8to.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://to8to.com"
+      - name: do tutorialspoint.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tutorialspoint.com"
+      - name: do panda.tv
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://panda.tv"
+      - name: do lenta.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lenta.ru"
+      - name: do weblio.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://weblio.jp"
+      - name: do xda-developers.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xda-developers.com"
+      - name: do asahi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://asahi.com"
+      - name: do google.com.kw
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.kw"
+      - name: do thefreedictionary.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thefreedictionary.com"
+      - name: do adp.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adp.com"
+      - name: do kayak.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kayak.com"
+      - name: do intel.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://intel.com"
+      - name: do kijiji.ca
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://kijiji.ca"
+      - name: do youdao.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youdao.com"
+      - name: do korabia.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://korabia.com"
+      - name: do chaoshi.tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chaoshi.tmall.com"
+      - name: do thedailybeast.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thedailybeast.com"
+      - name: do drudgereport.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://drudgereport.com"
+      - name: do eventbrite.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://eventbrite.com"
+      - name: do hotstar.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hotstar.com"
+      - name: do tradeadexchange.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tradeadexchange.com"
+      - name: do hdzog.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hdzog.com"
+      - name: do change.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://change.org"
+      - name: do hootsuite.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hootsuite.com"
+      - name: do dictionary.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dictionary.com"
+      - name: do makemytrip.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://makemytrip.com"
+      - name: do brightonclick.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://brightonclick.com"
+      - name: do streamcloud.eu
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://streamcloud.eu"
+      - name: do norton.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://norton.com"
+      - name: do cctv.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cctv.com"
+      - name: do watsons.tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://watsons.tmall.com"
+      - name: do prothom-alo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://prothom-alo.com"
+      - name: do researchgate.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://researchgate.net"
+      - name: do ebates.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ebates.com"
+      - name: do hotmovs.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://hotmovs.com"
+      - name: do olx.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://olx.in"
+      - name: do sakura.ne.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sakura.ne.jp"
+      - name: do bookmyshow.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bookmyshow.com"
+      - name: do subscene.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://subscene.com"
+      - name: do le.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://le.com"
+      - name: do emol.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://emol.com"
+      - name: do justdial.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://justdial.com"
+      - name: do 11st.co.kr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://11st.co.kr"
+      - name: do cookpad.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cookpad.com"
+      - name: do retailmenot.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://retailmenot.com"
+      - name: do thewatchseries.to
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thewatchseries.to"
+      - name: do basecamp.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://basecamp.com"
+      - name: do slimspots.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://slimspots.com"
+      - name: do corriere.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://corriere.it"
+      - name: do gmarket.co.kr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gmarket.co.kr"
+      - name: do overstock.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://overstock.com"
+      - name: do asus.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://asus.com"
+      - name: do y8.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://y8.com"
+      - name: do dcinside.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dcinside.com"
+      - name: do momoshop.com.tw
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://momoshop.com.tw"
+      - name: do woot.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://woot.com"
+      - name: do shopclues.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://shopclues.com"
+      - name: do csgolounge.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://csgolounge.com"
+      - name: do disqus.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://disqus.com"
+      - name: do so-net.ne.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://so-net.ne.jp"
+      - name: do wattpad.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wattpad.com"
+      - name: do gmanetwork.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gmanetwork.com"
+      - name: do cbsnews.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cbsnews.com"
+      - name: do leagueoflegends.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://leagueoflegends.com"
+      - name: do uber.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://uber.com"
+      - name: do ryanair.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ryanair.com"
+      - name: do patch.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://patch.com"
+      - name: do 4399.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://4399.com"
+      - name: do adbooth.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://adbooth.com"
+      - name: do sabq.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sabq.org"
+      - name: do dropbooks.tv
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://dropbooks.tv"
+      - name: do www.gov.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://www.gov.uk"
+      - name: do udemy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://udemy.com"
+      - name: do cnmo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnmo.com"
+      - name: do bleacherreport.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bleacherreport.com"
+      - name: do aa.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://aa.com"
+      - name: do lapatilla.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lapatilla.com"
+      - name: do instructables.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://instructables.com"
+      - name: do clien.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://clien.net"
+      - name: do ew.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ew.com"
+      - name: do nba.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nba.com"
+      - name: do mirror.co.uk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mirror.co.uk"
+      - name: do interia.pl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://interia.pl"
+      - name: do marketwatch.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://marketwatch.com"
+      - name: do ensonhaber.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ensonhaber.com"
+      - name: do yadi.sk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yadi.sk"
+      - name: do line.me
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://line.me"
+      - name: do mercadolibre.com.ve
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mercadolibre.com.ve"
+      - name: do e-hentai.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://e-hentai.org"
+      - name: do uploaded.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://uploaded.net"
+      - name: do verizon.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://verizon.com"
+      - name: do pnc.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pnc.com"
+      - name: do namu.wiki
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://namu.wiki"
+      - name: do yodobashi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yodobashi.com"
+      - name: do heroquizz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://heroquizz.com"
+      - name: do latimes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://latimes.com"
+      - name: do 123cha.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://123cha.com"
+      - name: do pof.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pof.com"
+      - name: do eyny.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://eyny.com"
+      - name: do azlyrics.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://azlyrics.com"
+      - name: do aliyun.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://aliyun.com"
+      - name: do people.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://people.com"
+      - name: do yandex.com.tr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yandex.com.tr"
+      - name: do rottentomatoes.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://rottentomatoes.com"
+      - name: do 104.com.tw
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://104.com.tw"
+      - name: do houzz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://houzz.com"
+      - name: do time.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://time.com"
+      - name: do cisco.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cisco.com"
+      - name: do ppomppu.co.kr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ppomppu.co.kr"
+      - name: do cbssports.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cbssports.com"
+      - name: do biglobe.ne.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://biglobe.ne.jp"
+      - name: do jrj.com.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://jrj.com.cn"
+      - name: do xunlei.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xunlei.com"
+      - name: do lenovo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lenovo.com"
+      - name: do usbank.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://usbank.com"
+      - name: do vk.me
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vk.me"
+      - name: do zulily.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zulily.com"
+      - name: do asana.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://asana.com"
+      - name: do youboy.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://youboy.com"
+      - name: do zone-telechargement.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zone-telechargement.com"
+      - name: do glassdoor.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://glassdoor.com"
+      - name: do seasonvar.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://seasonvar.ru"
+      - name: do nikkeibp.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nikkeibp.co.jp"
+      - name: do investing.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://investing.com"
+      - name: do google.com.do
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.do"
+      - name: do united.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://united.com"
+      - name: do teepr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://teepr.com"
+      - name: do indianexpress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://indianexpress.com"
+      - name: do wikiwiki.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://wikiwiki.jp"
+      - name: do pch.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pch.com"
+      - name: do jimdo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://jimdo.com"
+      - name: do oeeee.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://oeeee.com"
+      - name: do gyazo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gyazo.com"
+      - name: do myfitnesspal.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://myfitnesspal.com"
+      - name: do yts.ag
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://yts.ag"
+      - name: do breitbart.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://breitbart.com"
+      - name: do 123rf.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://123rf.com"
+      - name: do nextdoor.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nextdoor.com"
+      - name: do voc.com.cn
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://voc.com.cn"
+      - name: do cnbc.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cnbc.com"
+      - name: do sears.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sears.com"
+      - name: do bs.to
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bs.to"
+      - name: do itmedia.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://itmedia.co.jp"
+      - name: do thekitchn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thekitchn.com"
+      - name: do bomb01.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bomb01.com"
+      - name: do slate.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://slate.com"
+      - name: do google.com.my
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.my"
+      - name: do 4chan.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://4chan.org"
+      - name: do biobiochile.cl
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://biobiochile.cl"
+      - name: do google.co.nz
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.co.nz"
+      - name: do okcupid.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://okcupid.com"
+      - name: do google.rs
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.rs"
+      - name: do instructure.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://instructure.com"
+      - name: do intoday.in
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://intoday.in"
+      - name: do stumbleupon.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://stumbleupon.com"
+      - name: do chinaso.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chinaso.com"
+      - name: do squarespace.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://squarespace.com"
+      - name: do fitbit.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://fitbit.com"
+      - name: do photobucket.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://photobucket.com"
+      - name: do eskimi.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://eskimi.com"
+      - name: do mixi.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mixi.jp"
+      - name: do 4dsply.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://4dsply.com"
+      - name: do thatviralfeed.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://thatviralfeed.com"
+      - name: do pantip.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pantip.com"
+      - name: do as.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://as.com"
+      - name: do elfagr.org
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://elfagr.org"
+      - name: do 3dmgame.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://3dmgame.com"
+      - name: do howtogeek.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://howtogeek.com"
+      - name: do aastocks.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://aastocks.com"
+      - name: do manoramaonline.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://manoramaonline.com"
+      - name: do chron.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chron.com"
+      - name: do inquirer.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://inquirer.net"
+      - name: do t-mobile.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://t-mobile.com"
+      - name: do xbox.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://xbox.com"
+      - name: do meaww.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://meaww.com"
+      - name: do pogo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://pogo.com"
+      - name: do redfin.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://redfin.com"
+      - name: do buy.tmall.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://buy.tmall.com"
+      - name: do drom.ru
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://drom.ru"
+      - name: do infoseek.co.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://infoseek.co.jp"
+      - name: do buzzfil.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://buzzfil.net"
+      - name: do urbandictionary.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://urbandictionary.com"
+      - name: do mit.edu
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mit.edu"
+      - name: do olx.com.br
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://olx.com.br"
+      - name: do chinaz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chinaz.com"
+      - name: do chip.de
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://chip.de"
+      - name: do panet.co.il
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://panet.co.il"
+      - name: do gamespot.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gamespot.com"
+      - name: do google.com.ec
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://google.com.ec"
+      - name: do subito.it
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://subito.it"
+      - name: do gazetaexpress.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gazetaexpress.com"
+      - name: do zara.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://zara.com"
+      - name: do swagbucks.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://swagbucks.com"
+      - name: do tmz.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tmz.com"
+      - name: do nexusmods.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://nexusmods.com"
+      - name: do tsite.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://tsite.jp"
+      - name: do timeanddate.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://timeanddate.com"
+      - name: do discuss.com.hk
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://discuss.com.hk"
+      - name: do quanjing.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://quanjing.com"
+      - name: do bhphotovideo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bhphotovideo.com"
+      - name: do lequipe.fr
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://lequipe.fr"
+      - name: do superuser.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://superuser.com"
+      - name: do ero-advertising.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://ero-advertising.com"
+      - name: do myntra.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://myntra.com"
+      - name: do cdiscount.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://cdiscount.com"
+      - name: do issuu.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://issuu.com"
+      - name: do filehippo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://filehippo.com"
+      - name: do vporn.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vporn.com"
+      - name: do quikr.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://quikr.com"
+      - name: do 126.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://126.com"
+      - name: do gameforge.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gameforge.com"
+      - name: do twoo.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://twoo.com"
+      - name: do microsoftstore.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://microsoftstore.com"
+      - name: do java.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://java.com"
+      - name: do blogspot.mx
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://blogspot.mx"
+      - name: do spankbang.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://spankbang.com"
+      - name: do discover.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://discover.com"
+      - name: do bt.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://bt.com"
+      - name: do agar.io
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://agar.io"
+      - name: do priceline.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://priceline.com"
+      - name: do mercadolibre.com.mx
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mercadolibre.com.mx"
+      - name: do atwiki.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://atwiki.jp"
+      - name: do audible.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://audible.com"
+      - name: do mynavi.jp
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://mynavi.jp"
+      - name: do vodlocker.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://vodlocker.com"
+      - name: do sky.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sky.com"
+      - name: do sciencedirect.com
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://sciencedirect.com"
+      - name: do gigazine.net
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://gigazine.net"
+      - name: do olx.ua
+        if: always()
+        run: curl --max-time 5 --connect-timeout 5 -Iv "https://olx.ua"
