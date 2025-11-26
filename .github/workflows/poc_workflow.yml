@@ -18,7 +18,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: Prateek-stepsecurity/harden-runner@int
         with:
          egress-policy: audit
      
