@@ -5,23 +5,20 @@ on:
       enable_anomalous_call:
         description: 'Make anomalous outbound call'
         required: false
-        default: false
+        default: true
         type: boolean
       run_only_anomalous:
         description: 'Run only the anomalous-outbound-call job'
         required: false
         default: false
         type: boolean
-permissions:
-  contents: read
-  id-token: write
-  
+
 jobs:
   tj-actions-simulation:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: Prateek-stepsecurity/harden-runner@int
         with:
          egress-policy: audit
      
@@ -95,7 +92,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: Prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
     - name: Checkout
@@ -109,9 +106,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: Prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Reverse shell
         run: |
@@ -120,9 +119,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: Prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Dind escape
         run: |
@@ -132,7 +134,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: Prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
     - name: Checkout code
@@ -155,7 +157,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: Prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
     - name: Checkout code
@@ -165,7 +167,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: Prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: block
          allowed-endpoints: >
@@ -214,7 +216,7 @@ jobs:
     # echo "All 100 baseline runs triggered!"
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: Prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
          
@@ -232,8 +234,8 @@ jobs:
           sleep 10  # wait 10 seconds between calls
         done
     
-    - name: Make anomalous outbound call
-      if: ${{ github.event.inputs.enable_anomalous_call == 'true' }}
+    - name: Run anomalous calls (detection)
+      if: always()
       run: |
         # Generate a random subdomain
         RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
@@ -244,36 +246,16 @@ jobs:
         # Attempt to connect to the random domain (this will likely fail)
         curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
 
-  source-code:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: step-security/harden-runner@rc-20-int
-      with:
-         egress-policy: audit
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Overwrite a file
+        curl okcupid.com
+
+    - name: Run anomalous calls (suppression)
+      if: always()
       run: |
-        echo "hello" >> README.MD    
+        # Generate a random subdomain
+        RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
+        ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.suppress.com"
         
-    - name: Overwrite a file again
-      run: |
-        echo "hello2" >> README.MD
-
-
-  policy-test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: step-security/harden-runner@rc-20-int
-      with:
-         policy: new-old
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Curl youtube
-      run: |
-        curl https://youtube.com     
-    - name: Curl google
-      run: |
-        curl https://google.com
+        echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
+        
+        # Attempt to connect to the random domain (this will likely fail)
+        curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
