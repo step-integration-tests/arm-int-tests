@@ -14,7 +14,7 @@ on:
         type: boolean
 
 jobs:
-  tj-actions-simulation:
+  tj-action:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-22.04
     steps:
