@@ -12,11 +12,14 @@ on:
         required: false
         default: "4"
 
+permissions:
+  contents: read
+
 jobs:
   test-domains-parallel:
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@v2
+      - uses: step-security/harden-runner@df199fb7be9f65074067a9eb93f12bb4c5547cf2 # v2.13.3
         with:
           egress-policy: block
           allowed-endpoints: >
