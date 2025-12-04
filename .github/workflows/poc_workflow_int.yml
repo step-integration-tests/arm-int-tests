@@ -259,3 +259,18 @@ jobs:
         
         # Attempt to connect to the random domain (this will likely fail)
         curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
+
+  domain-block:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: step-security/harden-runner@rc-20-int
+      with:
+        egress-policy: block
+        allowed-endpoints: >
+          google.com:443
+         
+    - name: Checkout code
+      uses: actions/checkout@v3
+            
+    - run: curl -I https://www.google.com
+    - run: curl -I https://goreleaser.com
