@@ -267,10 +267,15 @@ jobs:
       with:
         egress-policy: block
         allowed-endpoints: >
+          www.google.com:443
           google.com:443
          
     - name: Checkout code
       uses: actions/checkout@v3
             
-    - run: curl -I https://www.google.com
-    - run: curl -I https://goreleaser.com
+    - name: Run google.com
+      if: always()
+      run: curl -I https://www.google.com
+    - name: Run goreleaser.com
+      if: always()
+      run: curl -I https://goreleaser.com
