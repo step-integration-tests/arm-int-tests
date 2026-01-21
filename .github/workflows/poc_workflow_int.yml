@@ -234,31 +234,31 @@ jobs:
           sleep 10  # wait 10 seconds between calls
         done
     
-    - name: Run anomalous calls (detection)
-      if: always()
-      run: |
-        # Generate a random subdomain
-        RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
-        ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.example.com"
+    # - name: Run anomalous calls (detection)
+    #   if: always()
+    #   run: |
+    #     # Generate a random subdomain
+    #     RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
+    #     ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.example.com"
         
-        echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
+    #     echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
         
-        # Attempt to connect to the random domain (this will likely fail)
-        curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
+    #     # Attempt to connect to the random domain (this will likely fail)
+    #     curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
 
-        curl okcupid.com
+    #     curl okcupid.com
 
-    - name: Run anomalous calls (suppression)
-      if: always()
-      run: |
-        # Generate a random subdomain
-        RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
-        ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.suppress.com"
+    # - name: Run anomalous calls (suppression)
+    #   if: always()
+    #   run: |
+    #     # Generate a random subdomain
+    #     RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
+    #     ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.suppress.com"
         
-        echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
+    #     echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
         
-        # Attempt to connect to the random domain (this will likely fail)
-        curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
+    #     # Attempt to connect to the random domain (this will likely fail)
+    #     curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
 
   domain-block:
     runs-on: ubuntu-latest
