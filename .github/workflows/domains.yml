@@ -13,12 +13,15 @@ on:
         required: false
         default: ""
         
+permissions:
+  contents: read
+
 jobs:
   enum:
     runs-on: ${{ inputs.RunnerLabel }}
     steps:
 
-      - uses: step-security/harden-runner@v2
+      - uses: step-security/harden-runner@e3f713f2d8f53843e71c69a996d56f51aa9adfb9 # v2.14.1
         with:
           egress-policy: block
           allowed-endpoints: >
