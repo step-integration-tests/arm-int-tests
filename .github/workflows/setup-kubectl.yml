@@ -2,6 +2,9 @@ name: azure/setup-kubectl
 on:
   workflow_dispatch:
   
+permissions:
+  contents: read
+
 jobs:
   generate-jobs:
     name: Generate Jobs
@@ -9,11 +12,11 @@ jobs:
    
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
         with:
           egress-policy: audit
 
-      - uses: azure/setup-kubectl@vv4.0.0
+      - uses: azure/setup-kubectl@0c5e050edfed71b2b50731ab044d42489d51c129 # vv4.0.0
       - run: sleep 300
         
            
