@@ -250,7 +250,7 @@ jobs:
     - name: Run anomalous calls (suppression)
       if: always()
       run: |
-        curl okcupid.com
+        curl bing.com
 
   domain-block:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
