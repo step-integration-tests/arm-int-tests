@@ -240,7 +240,7 @@ jobs:
       run: |
         # Generate a random subdomain
         RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
-        ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.example.com"
+        ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.example.${RANDOM_SUBDOMAIN}.com"
         
         echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
         
