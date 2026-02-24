@@ -247,19 +247,10 @@ jobs:
         # Attempt to connect to the random domain (this will likely fail)
         curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
 
-        curl okcupid.com
-
     - name: Run anomalous calls (suppression)
       if: always()
       run: |
-        # Generate a random subdomain
-        RANDOM_SUBDOMAIN=$(openssl rand -hex 8)
-        ANOMALOUS_DOMAIN="${RANDOM_SUBDOMAIN}.suppress.com"
-        
-        echo "Making anomalous call to: $ANOMALOUS_DOMAIN"
-        
-        # Attempt to connect to the random domain (this will likely fail)
-        curl -I --max-time 5 "https://$ANOMALOUS_DOMAIN" || true
+        curl okcupid.com
 
   domain-block:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
