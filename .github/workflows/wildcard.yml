@@ -2,12 +2,15 @@ name: 2. Exfiltration Simulation
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   exfiltration-simulation:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
         with:
           egress-policy: block
           allowed-endpoints: >
