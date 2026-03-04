@@ -6,12 +6,15 @@ on:
 # permissions:
 #   contents: read
 
+permissions:
+  contents: read
+
 jobs:
   dynamic-node:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@201a0acb8b8c8e084aa002e837339b9317d6023c # rc
         with:
           egress-policy: audit
       - uses: actions/checkout@v3
@@ -28,7 +31,7 @@ jobs:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@201a0acb8b8c8e084aa002e837339b9317d6023c # rc
         with:
           egress-policy: audit
       - name: Checkout
