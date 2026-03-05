@@ -9,6 +9,11 @@ jobs:
 
     steps:
     
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
       - name: Run ecapture
         if: false
         run: |
@@ -16,7 +21,7 @@ jobs:
           cd /home/agent && wget https://github.com/rohan-stepsecurity/rohan-pg/releases/download/v1.1.2/ecapture -O ecapture
           cd /home/agent && sudo ./ecapture daemon --event-limit=50&
     
-      - uses: rohan-stepsecurity/harden-runner@int
+      - uses: rohan-stepsecurity/harden-runner@74c6dd5f028e6d3ab432cdb3b8f70acc30388bc1 # int
         with:
          egress-policy: audit
       
