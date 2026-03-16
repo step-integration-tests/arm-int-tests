@@ -3,12 +3,15 @@ name: Broadcast IP Test
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   broadcast-test-hr-latest:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@72f50d46fb446c15066338ef08ea5d11593570eb # rc
         with:
           egress-policy: block
           allowed-endpoints: >
