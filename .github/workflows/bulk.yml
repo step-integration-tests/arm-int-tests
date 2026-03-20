@@ -3,12 +3,15 @@ name: Bulk API
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   bulk-request:
     runs-on: ubuntu-latest
     steps:
         
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@80c020557c49b05e0f7e4609e9ad20c1f678c742 # rc
         with:
          egress-policy: block
          allowed-endpoints: >
