@@ -6,12 +6,15 @@ on:
 # permissions:
 #   contents: read
 
+permissions:
+  contents: read
+
 jobs:
   disabled-telemetry:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # rc
         with:
           egress-policy: block
           disable-sudo: true
