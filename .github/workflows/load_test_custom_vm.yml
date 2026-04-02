@@ -3,12 +3,15 @@ name: Agent Capability Tests - Custom VM
 on: 
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-host-outbound:
     runs-on: step-security-ubuntu-24-1
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -36,7 +39,7 @@ jobs:
     runs-on: step-security-ubuntu-24-1
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # rc
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -88,7 +91,7 @@ jobs:
     runs-on: step-security-ubuntu-24-1
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -137,7 +140,7 @@ jobs:
     runs-on: step-security-ubuntu-24-1
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # rc
         with:
           egress-policy: block
           allowed-endpoints: >
