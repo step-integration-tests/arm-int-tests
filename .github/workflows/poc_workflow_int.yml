@@ -238,12 +238,12 @@ jobs:
     - name: Run anomalous calls (detection)
       if: always()
       run: |
-        curl okcupid.com
+        curl https://okcupid.com:443
 
     - name: Run anomalous calls (suppression)
       if: always()
       run: |
-        curl bing.com
+        curl https://bing.com:443
 
   domain-block:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
