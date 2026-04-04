@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@feature/policy-store
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
