@@ -1,0 +1,30 @@
+name: Policy Store - Workflow Level
+
+on:
+  workflow_dispatch:
+
+jobs:
+  workflow-level-policy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Harden the runner
+        uses: step-security/harden-runner@rc
+        with:
+          use-policy-store: true
+          api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: call google
+        run: |
+          curl https://google.com
+
+      - name: call bing
+        run: |
+          curl https://bing.com
+
+      - name: call microsoft
+        run: |
+          curl https://microsoft.com
