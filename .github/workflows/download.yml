@@ -56,6 +56,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
          go-version: '1.23.0'
+         cache: false
 
   consume:
     needs: build
@@ -96,6 +97,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.23.0'
+          cache: false
       # - name: print tracer log
       #   if: always()
       #   run: |
