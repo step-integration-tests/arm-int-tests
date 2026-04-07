@@ -3,11 +3,19 @@ name: Enum
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   enum:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: lsm param
         run: cat /sys/kernel/security/lsm
 
