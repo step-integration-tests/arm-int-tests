@@ -16,7 +16,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@289f73efeab9e206926c0a2520f64f2a6b9b9b69 # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -47,7 +47,7 @@ jobs:
       - run: cat /etc/systemd/resolved.conf
       - run: cat /etc/resolv.conf
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       
       - name: Run outbound calls from host
         run: |
@@ -67,7 +67,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@289f73efeab9e206926c0a2520f64f2a6b9b9b69 # rc
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -82,7 +82,7 @@ jobs:
       - run: cat /etc/resolv.conf
       - run: cat /run/systemd/resolve/resolv.conf
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       
       - name: Run outbound calls from within Docker container
         continue-on-error: true
@@ -111,7 +111,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@289f73efeab9e206926c0a2520f64f2a6b9b9b69 # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -126,7 +126,7 @@ jobs:
       
       - run: cat /etc/resolv.conf
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       
       - name: Build Docker image and test outbound calls during build
         continue-on-error: true
@@ -156,7 +156,7 @@ jobs:
       
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@289f73efeab9e206926c0a2520f64f2a6b9b9b69 # rc
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -171,7 +171,7 @@ jobs:
       
       - run: cat /etc/resolv.conf
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       
       - name: Run long-running Docker container with outbound calls
         continue-on-error: true
