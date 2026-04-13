@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@bb4b9e732d75afc924739b7122ef1236dcef5b7a # rc
         with:
           egress-policy: block
           allowed-endpoints: >
