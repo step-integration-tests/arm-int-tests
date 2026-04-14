@@ -1,0 +1,23 @@
+name: Global Blocklist
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Global-Blocklist
+    runs-on: ubuntu-latest
+    steps:           
+     - uses: prateek-stepsecurity/harden-runner@v1.8.0
+       with:
+        egress-policy: audit   
+     - uses: actions/checkout@v3
+     
+     - name: curl dummyblock.com
+       if: always()
+       run: "curl dummyblock.com --connect-timeout 5 --max-time 5"
+     - name: curl 2.2.2.2
+       if: always()
+       run: "curl 2.2.2.2 --connect-timeout 5 --max-time 5"
+     - name: curl google.com
+       if: always()
+       run: "curl google.com:443  --connect-timeout 5 --max-time 5"
