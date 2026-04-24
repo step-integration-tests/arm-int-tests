@@ -7,10 +7,15 @@ jobs:
     name: Global-Blocklist
     runs-on: ubuntu-latest
     steps:           
-     - uses: prateek-stepsecurity/harden-runner@v1.8.0
+     - name: Harden the runner (Audit all outbound calls)
+       uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+       with:
+         egress-policy: audit
+
+     - uses: prateek-stepsecurity/harden-runner@169bf382c794886caddd062d21dcf8f8bb4d54cb # v1.8.0
        with:
         egress-policy: audit   
-     - uses: actions/checkout@v3
+     - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
      
      - name: curl dummyblock.com
        if: always()
