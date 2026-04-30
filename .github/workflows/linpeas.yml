@@ -17,11 +17,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@a4df7a00a53993f6e7823ef61b093cb895285de1 # rc
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
