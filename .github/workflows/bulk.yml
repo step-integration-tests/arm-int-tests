@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@a4df7a00a53993f6e7823ef61b093cb895285de1 # rc
         with:
          egress-policy: block
          allowed-endpoints: >
@@ -118,9 +118,9 @@ jobs:
 
          
       - run: sleep 5
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
       
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
         with:
           go-version: '1.21'
       - name: Run Extended Domain Check
