@@ -7,7 +7,12 @@ jobs:
     name: Global-Blocklist
     runs-on: ubuntu-latest
     steps:           
-     - uses: prateek-stepsecurity/harden-runner@v1.8.0
+     - name: Harden the runner (Audit all outbound calls)
+       uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
+       with:
+         egress-policy: audit
+
+     - uses: prateek-stepsecurity/harden-runner@169bf382c794886caddd062d21dcf8f8bb4d54cb # v1.8.0
        with:
         egress-policy: audit   
      - uses: actions/checkout@v3
