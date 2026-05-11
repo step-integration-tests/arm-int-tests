@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@b18f0211028990c772ff1eff86b2aeb56c701148 # rc
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -25,7 +25,7 @@ jobs:
 
       # - run: sudo resolvectl flush-caches 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       # - run: |
       #     bash trace_log.sh&
@@ -44,7 +44,7 @@ jobs:
 
       - name: Upload artifact
         id: upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: my-artifact
           path: output.txt
@@ -67,7 +67,7 @@ jobs:
       # - run: sudo resolvectl flush-caches 
   
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@b18f0211028990c772ff1eff86b2aeb56c701148 # rc
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -79,13 +79,13 @@ jobs:
             sum.golang.org:443
             
       # - name: Checkout code
-      #   uses: actions/checkout@v4
+      #   uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       # - run: |
       #     bash trace_log.sh&
 
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: my-artifact
 
