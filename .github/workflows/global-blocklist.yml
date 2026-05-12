@@ -21,3 +21,7 @@ jobs:
      - name: curl google.com
        if: always()
        run: "curl google.com:443  --connect-timeout 5 --max-time 5"
+
+     - name: curl evil.invalid
+       if: always()
+       run: "curl https://evil.invalid:443 --connect-timeout 5 --max-time 5" 
