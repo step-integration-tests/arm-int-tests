@@ -7,8 +7,8 @@ jobs:
     name: Global-Blocklist
     runs-on: ubuntu-latest
     steps:           
-     # - uses: prateek-stepsecurity/harden-runner@v1.8.0
-     - uses: step-security/harden-runner@v2
+     - uses: prateek-stepsecurity/harden-runner@v1.8.0
+     # - uses: step-security/harden-runner@v2
        with:
         egress-policy: audit   
      - uses: actions/checkout@v3
