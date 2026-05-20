@@ -47,6 +47,7 @@ jobs:
             *.docker.io:443
             security.ubuntu.com:80
             ports.ubuntu.com:80
+            production.cloudfront.docker.com:443
 
       - run: cat /etc/resolv.conf
       - run: cat /run/systemd/resolve/resolv.conf
@@ -99,7 +100,7 @@ jobs:
             production.cloudflare.docker.com:443
             registry-1.docker.io:443
             security.ubuntu.com:80
-            
+            production.cloudfront.docker.com:443
 
       - run: cat /etc/resolv.conf
       
@@ -149,6 +150,7 @@ jobs:
             registry-1.docker.io:443
             security.ubuntu.com:80
             ports.ubuntu.com:80
+            production.cloudfront.docker.com:443
 
       - run: cat /etc/resolv.conf
       
