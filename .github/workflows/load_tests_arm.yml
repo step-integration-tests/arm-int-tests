@@ -8,7 +8,8 @@ jobs:
     runs-on: ARMLinuxRunner
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        # uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@debug
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -36,7 +37,8 @@ jobs:
     runs-on: ARMLinuxRunner
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        # uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@debug
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -89,7 +91,8 @@ jobs:
     runs-on: ARMLinuxRunner
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        # uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@debug
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -138,7 +141,8 @@ jobs:
     runs-on: ARMLinuxRunner
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        # uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@debug
         with:
           egress-policy: block
           allowed-endpoints: >
