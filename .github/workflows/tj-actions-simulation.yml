@@ -3,11 +3,14 @@ name: POC TJ-Actions Simulation
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   tj-actions-simulation:
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@v2
+      - uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
         with:
           egress-policy: audit
 
