@@ -3,13 +3,16 @@ name: Policy Store - Repo Level
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   repo-level-policy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@feature/policy-store
+        uses: step-security/harden-runner@289f73efeab9e206926c0a2520f64f2a6b9b9b69 # feature/policy-store
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
