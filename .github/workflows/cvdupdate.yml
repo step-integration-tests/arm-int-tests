@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
     
 
+permissions:
+  contents: read
+
 jobs:
 
   build:
@@ -12,7 +15,7 @@ jobs:
     steps:
 
     - name: Harden Runner
-      uses: step-security/harden-runner@rc
+      uses: step-security/harden-runner@774f75f2c6334606d2d3d910a663f93c9ea49b3b # rc
       with:
         egress-policy: audit
         allowed-endpoints: >
