@@ -3,6 +3,9 @@ name: DNS Resolution Test for file:// URLs
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-dns-resolution:
     runs-on: ubuntu-latest
