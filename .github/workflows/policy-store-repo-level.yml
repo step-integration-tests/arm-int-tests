@@ -13,7 +13,7 @@ jobs:
         with:
           env: sailikhith.dedicated-dev
           use-policy-store: true
-          api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
+          api-key: ${{ secrets.STEP_SECURITY_API_KEY_SAI }}
 
       - name: Checkout code
         uses: actions/checkout@v4
