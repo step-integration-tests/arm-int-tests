@@ -8,15 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
       - name: Harden the runner
-        uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
+        uses: sailikhith-stepsecurity/harden-runner@e80c304f1e58ef18981fe561c45783f86c85c782 # feat/dedicated-env
         with:
           env: sailikhith.dedicated-dev
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY_SAI }}
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: call google
         run: |
