@@ -9,8 +9,9 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@feature/policy-store
+        uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
         with:
+          env: sailikhith.dedicated-dev
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
 
