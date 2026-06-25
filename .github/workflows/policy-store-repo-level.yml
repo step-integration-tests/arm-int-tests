@@ -9,11 +9,10 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
+        uses: step-security/harden-runner@feature/policy-store
         with:
-          env: sailikhith.dedicated-dev
           use-policy-store: true
-          api-key: ${{ secrets.STEP_SECURITY_API_KEY_SAI }}
+          api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
 
       - name: Checkout code
         uses: actions/checkout@v4
