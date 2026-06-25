@@ -11,10 +11,9 @@ jobs:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
+      - uses: step-security/harden-runner@rc
         with:
           egress-policy: audit
-          env: sailikhith.dedicated-dev
       - uses: actions/checkout@v3
 
       - name: echo overwrite
@@ -27,9 +26,8 @@ jobs:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
+      - uses: step-security/harden-runner@rc
         with:
-          env: sailikhith.dedicated-dev
           egress-policy: block
           disable-sudo: true
           allowed-endpoints: |
