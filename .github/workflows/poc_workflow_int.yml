@@ -18,7 +18,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@2caf03236a37620981c04afde93d903dad694080 # int
         with:
          egress-policy: audit
      
@@ -92,7 +97,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
       with:
          egress-policy: audit
     - name: Checkout
@@ -106,7 +111,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
         with:
           egress-policy: audit
       - name: Checkout
@@ -119,7 +124,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
         with:
           egress-policy: audit
 
@@ -134,7 +139,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
       with:
          egress-policy: audit
     - name: Checkout code
@@ -157,17 +162,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
       with:
          egress-policy: audit
     - name: Checkout code
       uses: actions/checkout@v3
-    - uses: step-security/dummy-compromised-action@v1
+    - uses: step-security/dummy-compromised-action@c96c327cecdb71e8f031080ba8ad208feb25b13d # v1
   unauthorized-outbound-call:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
       with:
          egress-policy: block
          allowed-endpoints: >
@@ -217,7 +222,7 @@ jobs:
     # echo "All 100 baseline runs triggered!"
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
       with:
          egress-policy: audit
          
@@ -249,7 +254,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
       with:
         egress-policy: block
         allowed-endpoints: >
