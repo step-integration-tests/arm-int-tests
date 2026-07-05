@@ -5,6 +5,9 @@ on:
   # schedule:
   #   - cron: '0 0 * * *'  # Runs daily at 00:00 UTC
 
+permissions:
+  contents: read
+
 jobs:
   docker-outbound-block:
     name: Docker Outbound (Block)
@@ -12,7 +15,7 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@1188420976b49762617c32cc010cba50a9fd7a71 # rc
         with:
           egress-policy: audit
           allowed-endpoints: >
