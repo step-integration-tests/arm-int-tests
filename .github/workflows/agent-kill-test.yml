@@ -1,4 +1,4 @@
-name: Coveo Scenario
+name: Agent kill test
 
 on:
   workflow_dispatch:
