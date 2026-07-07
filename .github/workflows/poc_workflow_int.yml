@@ -15,7 +15,7 @@ on:
 
 jobs:
   tj-action:
-    if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
+    if: false
     runs-on: ubuntu-22.04
     steps:
       - uses: prateek-stepsecurity/harden-runner@int
