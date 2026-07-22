@@ -18,7 +18,12 @@ jobs:
     if: false
     runs-on: ubuntu-22.04
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
         with:
          egress-policy: audit
      
@@ -92,7 +97,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
       with:
          egress-policy: audit
     - name: Checkout
@@ -106,7 +116,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
         with:
           egress-policy: audit
       - name: Checkout
@@ -119,7 +134,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
         with:
           egress-policy: audit
 
@@ -134,7 +154,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
       with:
          egress-policy: audit
     - name: Checkout code
@@ -157,17 +182,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
       with:
          egress-policy: audit
     - name: Checkout code
       uses: actions/checkout@v3
-    - uses: step-security/dummy-compromised-action@v1
+    - uses: step-security/dummy-compromised-action@c96c327cecdb71e8f031080ba8ad208feb25b13d # v1
   unauthorized-outbound-call:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
       with:
          egress-policy: block
          allowed-endpoints: >
@@ -217,7 +252,12 @@ jobs:
     # echo "All 100 baseline runs triggered!"
     runs-on: ubuntu-latest
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
       with:
          egress-policy: audit
          
@@ -249,7 +289,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@fe3fc142c6e777a432830e3fd4f8db8c5a3c971d # int
       with:
         egress-policy: block
         allowed-endpoints: >
