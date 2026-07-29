@@ -3,13 +3,16 @@ name: Set up Local Kubernetes with k3d and containerd
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   setup-k8s:
     runs-on: ubuntu-latest
 
     steps:
     - name: Harden Runner
-      uses: step-security/harden-runner@v2
+      uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
       with:
         egress-policy: block
         allowed-endpoints: >
