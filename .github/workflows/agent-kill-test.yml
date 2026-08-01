@@ -1,0 +1,37 @@
+name: Agent kill test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: prateek-stepsecurity/harden-runner@int
+        with:
+          egress-policy: audit
+          
+      - uses: actions/checkout@main
+
+      - name: do curl calls
+        if: always()
+        run: |
+          curl -v -4 google.com
+          curl -v -4 youtube.com
+          curl -v -4 microsoft.com
+          curl -v -4 bing.com
+          
+      - name: stop agent 
+        run: |
+         set -x
+         doWork(){
+           systemctl --version
+           pidof agent || true
+           sudo strace -f systemctl stop agent.service || true
+           pidof agent || true
+         }
+         doWork || true
+      - name: print agent logs
+        if: always()
+        run: sudo cat /home/agent/agent.log
+        
