@@ -7,11 +7,16 @@ jobs:
   latest:
     runs-on: ubuntu-latest
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@d867105c9eeb1add8fb44cd8574129594c68cc17 # int
         with:
           egress-policy: audit
           
-      - uses: actions/checkout@main
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # main
 
       - name: do curl calls
         if: always()
