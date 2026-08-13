@@ -1,0 +1,42 @@
+name: DenyList Test
+
+on:
+  workflow_dispatch:
+        
+jobs:
+
+  enum:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          denied-endpoints: >
+            google.com:443
+            1.1.1.1:80
+            
+      - name: do google
+        if: always()  
+        run: curl --connect-timeout 5 -Iv "https://google.com"
+
+      - name: do google.com:80
+        if: always()  
+        run: curl --connect-timeout 5 -Iv google.com:80
+      
+      - name: "do youtube"
+        if: always()  
+        run: curl --connect-timeout 5 -Iv "https://youtube.com"
+
+      - name: "do bing"
+        if: always()  
+        run: curl --connect-timeout 5 -Iv "https://bing.com"
+
+      - name: "do 1.1.1.1:443"
+        if: always()  
+        run: curl --connect-timeout 5 -Iv "https://1.1.1.1:443" 
+
+
+      - name: "do 1.1.1.1:80"
+        if: always()  
+        run: curl --connect-timeout 5 -Iv "http://1.1.1.1:80" 
