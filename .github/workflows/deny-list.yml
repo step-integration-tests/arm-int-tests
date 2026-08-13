@@ -12,8 +12,8 @@ jobs:
       - uses: step-security/harden-runner@rc
         with:
           egress-policy: block
-          allowed-endpoints: >
-            # google.com:443
+          denied-endpoints: >
+            google.com:443
             1.1.1.1:80
 
       - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
 
       - name: do google.com:80
         if: always()  
-        run: curl --connect-timeout 5 -Iv google.com:80
+        run: curl --connect-timeout 5 -Iv http://google.com:80
       
       - name: "do youtube"
         if: always()  
