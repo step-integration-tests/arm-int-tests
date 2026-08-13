@@ -12,8 +12,8 @@ jobs:
       - uses: step-security/harden-runner@rc
         with:
           egress-policy: block
-          denied-endpoints: >
-            google.com:443
+          allowed-endpoints: >
+            # google.com:443
             1.1.1.1:80
 
       - name: Checkout code
