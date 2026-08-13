@@ -15,6 +15,9 @@ jobs:
           denied-endpoints: >
             google.com:443
             1.1.1.1:80
+
+      - name: Checkout code
+        uses: actions/checkout@v4
             
       - name: do google
         if: always()  
