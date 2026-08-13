@@ -25,7 +25,7 @@ jobs:
 
       - name: do google.com:80
         if: always()  
-        run: curl --connect-timeout 5 -Iv http://google.com:80
+        run: curl --connect-timeout 5 -Iv google.com:80
       
       - name: "do youtube"
         if: always()  
