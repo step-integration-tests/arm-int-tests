@@ -26,10 +26,6 @@ jobs:
         if: always()
         run: npm view express version
 
-      - name: npm install axios
-        if: always()
-        run: npm install axios --no-save
-
       - name: curl registry.npmjs.org
         if: always()
         run: curl --connect-timeout 5 -Iv "https://registry.npmjs.org"
