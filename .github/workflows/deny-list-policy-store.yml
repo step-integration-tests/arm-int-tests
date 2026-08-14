@@ -12,8 +12,9 @@ jobs:
 
       - uses: step-security/harden-runner@rc
         with:
-          use-policy-store: true
-          api-key: ${{ secrets.STEP_SECURITY_API_KEY }}        
+          egress-policy: audit
+          # use-policy-store: true
+          # api-key: ${{ secrets.STEP_SECURITY_API_KEY }}        
 
       - name: Checkout code
         uses: actions/checkout@v4
