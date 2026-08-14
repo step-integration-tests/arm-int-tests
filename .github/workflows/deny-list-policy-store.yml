@@ -40,7 +40,4 @@ jobs:
       - name: "do google"
         if: always()
         run: curl --connect-timeout 5 -Iv "https://google.com"
-
-      - name: "do microsoft.com"
-        if: always()
-        run: curl --connect-timeout 5 -Iv "https://microsoft.com"
+        
