@@ -18,10 +18,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: remove pre-cached ubuntu images from runner
-        if: always()
-        run: docker image rm -f ubuntu:latest ubuntu:24.04 ubuntu:22.04 || true
-
       - name: docker pull ubuntu:latest from DockerHub
         if: always()
         run: docker pull ubuntu:latest
@@ -52,3 +48,7 @@ jobs:
       - name: "do google"
         if: always()
         run: curl --connect-timeout 5 -Iv "https://google.com"
+
+      - name: "do microsoft.com"
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://microsoft.com"
