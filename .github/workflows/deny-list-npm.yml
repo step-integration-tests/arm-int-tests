@@ -1,0 +1,72 @@
+name: DenyList NPM Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  npm-denied:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          denied-endpoints: >
+            registry.npmjs.org:443
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: npm ping
+        if: always()
+        run: npm ping
+
+      - name: npm view express
+        if: always()
+        run: npm view express version
+
+      - name: npm install axios
+        if: always()
+        run: npm install axios --no-save
+
+      - name: curl registry.npmjs.org
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://registry.npmjs.org"
+
+      - name: "do google"
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://google.com"
+
+  npm-allowed:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          denied-endpoints: >
+            google.com:443
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: npm ping
+        if: always()
+        run: npm ping
+
+      - name: npm view express
+        if: always()
+        run: npm view express version
+
+      - name: npm install axios
+        if: always()
+        run: npm install axios --no-save
+
+      - name: curl registry.npmjs.org
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://registry.npmjs.org"
+
+      - name: "do google"
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://google.com"
