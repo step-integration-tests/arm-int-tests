@@ -1,0 +1,57 @@
+name: DenyList Test - Policy Store
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  dockerhub-denied:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+
+      - uses: step-security/harden-runner@rc
+        with:
+          egress-policy: block
+          denied-endpoints: >
+            registry-1.docker.io:443
+            auth.docker.io:443
+            production.cloudflare.docker.com:443
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: remove pre-cached ubuntu images from runner
+        if: always()
+        run: docker image rm -f ubuntu:latest ubuntu:24.04 ubuntu:22.04 || true
+
+      - name: docker pull ubuntu:latest from DockerHub
+        if: always()
+        run: docker pull ubuntu:latest
+
+      - name: docker run ubuntu:latest
+        if: always()
+        run: docker run --rm ubuntu:latest cat /etc/os-release
+
+      - name: docker build FROM ubuntu:latest
+        if: always()
+        env:
+          DOCKER_BUILDKIT: 0
+        run: |
+          cat > Dockerfile.denytest <<'EOF'
+          FROM ubuntu:latest
+          RUN echo built
+          EOF
+          docker build --pull -f Dockerfile.denytest -t denytest .
+
+      - name: docker pull ubuntu:latest from public.ecr.aws mirror
+        if: always()
+        run: docker pull public.ecr.aws/docker/library/ubuntu:latest
+
+      - name: curl registry-1.docker.io
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://registry-1.docker.io/v2/"
+
+      - name: "do google"
+        if: always()
+        run: curl --connect-timeout 5 -Iv "https://google.com"
