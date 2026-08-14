@@ -12,11 +12,8 @@ jobs:
 
       - uses: step-security/harden-runner@rc
         with:
-          egress-policy: block
-          denied-endpoints: >
-            registry-1.docker.io:443
-            auth.docker.io:443
-            production.cloudflare.docker.com:443
+          use-policy-store: true
+          api-key: ${{ secrets.STEP_SECURITY_API_KEY }}        
 
       - name: Checkout code
         uses: actions/checkout@v4
