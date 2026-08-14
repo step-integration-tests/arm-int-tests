@@ -29,8 +29,6 @@ jobs:
           EOF
           docker build --pull -f Dockerfile.denytest -t denytest .
 
-      - run: sleep 2
-
       - name: docker pull ubuntu:latest from public.ecr.aws mirror
         if: always()
         run: docker pull public.ecr.aws/docker/library/ubuntu:latest
