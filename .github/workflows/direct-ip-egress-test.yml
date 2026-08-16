@@ -1,0 +1,48 @@
+name: Direct IP egress detection test
+
+# Exercises the direct-IP:443-with-no-domain code path on a GitHub-hosted runner.
+# By default that shape is hidden from the steps and suppressed from detection;
+# with the per-customer EnableDirectIP443Detection opt-in it should surface at its
+# real step and (once the job baseline is mature and the IP is new) generate a
+# New-Outbound-Network-Call detection that fails the Harden-Runner check.
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  direct-ip-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: prateek-stepsecurity/harden-runner@int
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@main
+
+      # Stable allowed traffic, to help the workflow-job accumulate baseline runs.
+      - name: baseline domain calls
+        if: always()
+        run: |
+          curl -v -4 --max-time 10 https://google.com || true
+          curl -v -4 --max-time 10 https://microsoft.com || true
+
+      # Core test: outbound to a raw IP on 443 with NO DNS lookup. This is the
+      # exact shape that is normally hidden at step -1 and excluded from detection
+      # on GitHub-hosted runners.
+      - name: direct IP outbound on 443 (no DNS)
+        if: always()
+        run: |
+          curl -v --max-time 10 https://1.1.1.1:443/ -o /dev/null || true
+          curl -v --max-time 10 https://9.9.9.9:443/ -o /dev/null || true
+
+      # Connect to a raw IP on 443 with no DNS (no listener; the TCP SYN is what
+      # the eBPF egress probe captures). Same direct-IP path, initiated from a
+      # non-curl process.
+      - name: raw socket connect to IP on 443
+        if: always()
+        run: |
+          timeout 10 python3 -c 'import socket; s=socket.socket(); s.settimeout(8); s.connect(("1.1.1.1",443)); s.close()' || true
