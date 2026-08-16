@@ -30,19 +30,23 @@ jobs:
           curl -v -4 --max-time 10 https://google.com || true
           curl -v -4 --max-time 10 https://microsoft.com || true
 
-      # Core test: outbound to a raw IP on 443 with NO DNS lookup. This is the
-      # exact shape that is normally hidden at step -1 and excluded from detection
-      # on GitHub-hosted runners.
-      - name: direct IP outbound on 443 (no DNS)
+      # Direct IPs that should already be in the baseline after the first run, so
+      # they show as accepted (not a fresh detection).
+      - name: accepted direct IPs on 443 (no DNS)
         if: always()
         run: |
           curl -v --max-time 10 https://1.1.1.1:443/ -o /dev/null || true
           curl -v --max-time 10 https://9.9.9.9:443/ -o /dev/null || true
 
-      # Connect to a raw IP on 443 with no DNS (no listener; the TCP SYN is what
-      # the eBPF egress probe captures). Same direct-IP path, initiated from a
-      # non-curl process.
-      - name: raw socket connect to IP on 443
+      # A NEW direct IP on 443 every run (RFC 5737 TEST-NET-3, not routed but the
+      # TCP SYN is still captured by the eBPF egress probe). Once the workflow-job
+      # baseline is mature this should surface at THIS step and fire a
+      # New-Outbound-Network-Call detection each run, failing the Harden-Runner check.
+      - name: new direct IP on 443 per run (no DNS)
         if: always()
         run: |
-          timeout 10 python3 -c 'import socket; s=socket.socket(); s.settimeout(8); s.connect(("1.1.1.1",443)); s.close()' || true
+          OCTET=$(( (GITHUB_RUN_NUMBER % 250) + 2 ))
+          IP="203.0.113.$OCTET"
+          echo "Testing new direct IP: $IP"
+          curl -v --max-time 8 "https://$IP:443/" -o /dev/null || true
+          timeout 8 python3 -c "import socket; s=socket.socket(); s.settimeout(6); s.connect(('$IP',443)); s.close()" || true
