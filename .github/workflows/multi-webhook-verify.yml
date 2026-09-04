@@ -1,0 +1,95 @@
+# Fixture for the multi-webhook routing integration test
+# (integration-test/multi_webhook, case "detection-routes-to-its-own-webhook").
+#
+# It produces two event categories from a single run: a detection and a run
+# insight. The test points a separate webhook destination at each and asserts
+# they arrive on the right one and only the right one. Delivery alone proves
+# nothing; the isolation is the point, since a single-webhook tenant would
+# receive both on the same endpoint.
+#
+# WHY THIS REPO: a detection is attributed to the StepSecurity tenant that owns
+# the repository's organization. The test rewrites the webhook configuration of
+# the "step-integration-tests" tenant, so the fixture has to live in the
+# step-integration-tests org. A copy in any other org routes by a different
+# tenant's config and can never reach the test's inboxes.
+#
+# Targets int (harden-runner@int), because multiple webhook support only exists
+# there. Dispatch only, so it never runs on push and never competes with the
+# other suites that use this repo.
+name: multi-webhook-verify
+
+on:
+  workflow_dispatch:
+    inputs:
+      emit_detection:
+        description: Emit a Source-Code-Overwritten detection for the detections webhook
+        type: boolean
+        default: true
+      emit_insight:
+        description: Emit run insights, which fire on every monitored run
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  detection:
+    name: Emit a detection
+    if: ${{ inputs.emit_detection }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@int
+        with:
+          egress-policy: audit
+
+      # Checkout first so the agent observes the repository's real files before
+      # any of them are rewritten.
+      - uses: actions/checkout@v4
+
+      # Source-Code-Overwritten comes from a file event the agent records when an
+      # existing file is rewritten in place, so these have to be files that were
+      # already tracked and checked out, not files this job creates. The
+      # detection key is "Source-Code-Overwritten-<basename>" with no run id in
+      # it, which is why the test clears the previous rows before dispatching.
+      #
+      # Nothing is committed or pushed; only the runner's working copy changes.
+      - name: Overwrite tracked files
+        run: |
+          set -uo pipefail
+          sleep 10
+
+          # Truncating rewrites, by a different process than the one that checked
+          # them out, so they register as overwrites rather than creates.
+          python3 -c "open('README.md','w').write('overwritten by run ${{ github.run_id }}\n')"
+          python3 -c "open('main.go','w').write('// overwritten by run ${{ github.run_id }}\n')"
+          python3 -c "open('tj.py','w').write('# overwritten by run ${{ github.run_id }}\n')"
+
+          echo "--- rewritten ---"
+          ls -l README.md main.go tj.py
+
+      - name: Settle
+        run: sleep 25
+
+  insight:
+    name: Emit run insights
+    if: ${{ inputs.emit_insight }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@int
+        with:
+          egress-policy: audit
+
+      # Insights are emitted for every monitored run: no baseline, no block mode,
+      # nothing to trigger. That makes them the reliable half of the pair, which
+      # is why this is a separate job from the detection one. The calls below only
+      # give the insight payload a recognizable endpoint list.
+      - name: Make a few outbound calls
+        run: |
+          set -uo pipefail
+          for host in api.github.com github.com objects.githubusercontent.com; do
+            echo "calling $host"
+            curl -sS --max-time 15 -o /dev/null "https://$host" || true
+          done
