@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Harden Runner
-      uses: step-security/harden-runner@v2
+      uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
       with:
         egress-policy: block
         allowed-endpoints: >
@@ -26,7 +26,7 @@ jobs:
 
         
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
 
     # Install k3d (lightweight wrapper to run K3s in Docker)
     - name: Install k3d
