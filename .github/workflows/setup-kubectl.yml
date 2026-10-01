@@ -9,11 +9,11 @@ jobs:
    
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
-      - uses: azure/setup-kubectl@vv4.0.0
+      - uses: azure/setup-kubectl@0c5e050edfed71b2b50731ab044d42489d51c129 # vv4.0.0
       - run: sleep 300
         
            
