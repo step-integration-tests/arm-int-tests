@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@8176415b6cb971a2a16ed72f628fedc420883308 # rc
         with:
           egress-policy: block
           denied-endpoints: >
@@ -17,7 +17,7 @@ jobs:
             1.1.1.1:80
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
             
       - name: do google
         if: always()  
