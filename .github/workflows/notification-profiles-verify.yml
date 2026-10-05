@@ -18,11 +18,11 @@
 # and the test rewrites the notification profiles of the "step-integration-tests"
 # org, so the fixture has to live in that org.
 #
-# Targets int, where notification profiles exist, with the same agent as
-# poc_workflow_int.yml (prateek-stepsecurity/harden-runner@int).
-# step-security/harden-runner@int is a June 2024 branch whose agent ignores
-# egress-policy: block and does not deliver the runtime events these
-# detections come from. Dispatch only, so it never runs on push and never
+# Targets int, where notification profiles exist, with
+# step-security/harden-runner@rc-20-int, which reports to int and produces all
+# three detections. step-security/harden-runner@int is a June 2024 branch whose
+# agent ignores egress-policy: block and does not deliver the runtime events
+# these detections come from. Dispatch only, so it never runs on push and never
 # competes with the other suites that use this repo.
 name: notification-profiles-verify
 
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: prateek-stepsecurity/harden-runner@int
+        uses: step-security/harden-runner@rc-20-int
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: prateek-stepsecurity/harden-runner@int
+        uses: step-security/harden-runner@rc-20-int
         with:
           egress-policy: audit
 
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: prateek-stepsecurity/harden-runner@int
+        uses: step-security/harden-runner@rc-20-int
         with:
           egress-policy: audit
 
