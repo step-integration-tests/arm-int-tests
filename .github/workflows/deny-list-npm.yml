@@ -3,13 +3,16 @@ name: DenyList NPM Test
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
 
   npm-denied:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@8176415b6cb971a2a16ed72f628fedc420883308 # rc
         with:
           egress-policy: block
           denied-endpoints: >
@@ -38,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@8176415b6cb971a2a16ed72f628fedc420883308 # rc
         with:
           egress-policy: block
           denied-endpoints: >

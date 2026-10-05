@@ -1,6 +1,9 @@
 name: CI
 on:
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   container-test-job:
     runs-on: ubuntu-latest
@@ -10,5 +13,10 @@ jobs:
         NODE_ENV: development
       options: --cpus 1
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
       - name: Check dockerenv with sudo
         run: sudo ls /.dockerenv || echo No dockerenv
