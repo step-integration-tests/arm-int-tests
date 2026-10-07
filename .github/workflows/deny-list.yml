@@ -3,13 +3,16 @@ name: DenyList Test
 on:
   workflow_dispatch:
         
+permissions:
+  contents: read
+
 jobs:
 
   enum:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # rc
         with:
           egress-policy: block
           denied-endpoints: >
