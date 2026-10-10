@@ -10,13 +10,13 @@ jobs:
     timeout-minutes: 5
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # rc
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}        
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: docker build FROM ubuntu:latest
         if: always()
