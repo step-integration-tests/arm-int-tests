@@ -1,0 +1,94 @@
+# Fixture for the runtime-telemetry Fargate integration test
+# (integration-test/runtime_telemetry_fargate, case "end-to-end"). It belongs in
+# step-integration-tests/arm-int-tests at
+# .github/workflows/runtime-telemetry-fargate-verify.yml.
+#
+# The job runs the int Harden Runner build, which writes the job's
+# correlation_id and one_time_key to /home/agent/agent.json. The job then posts
+# its own dns, networkconnection and httpsconnection events to the
+# runtime-telemetry ALB under that identity, twice, each time with a domain
+# that is unique to the run:
+#
+#   fargate-<run>-<attempt>.rt-e2e.example.com  with x-stepsecurity-rt-target: fargate,
+#                                               so the ALB sends it to the Fargate service
+#   split-<run>-<attempt>.rt-e2e.example.com    without the header, so it follows
+#                                               the configured Fargate/Lambda split
+#
+# It also makes one real call, agent-<run>-<attempt>.1-1-1-1.sslip.io, that the
+# agent reports on its own. That is the baseline: if it is missing as well, the
+# problem is after ingestion, not in the Fargate service.
+#
+# The test then reads the run back from the insights API and expects all three
+# domains on this job. Dispatch only, so it never runs on push.
+name: runtime-telemetry-fargate-verify
+
+on:
+  workflow_dispatch:
+    inputs:
+      telemetry_url:
+        description: 'Runtime-telemetry ALB base URL'
+        required: false
+        type: string
+        default: 'https://int.app-api.stepsecurity.io/v1'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: rt-fargate-verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@rc-20-int
+        with:
+          egress-policy: audit
+
+      - name: Real call reported by the agent
+        run: curl -sk -o /dev/null --connect-timeout 5 --max-time 10 "https://agent-${{ github.run_id }}-${{ github.run_attempt }}.1-1-1-1.sslip.io/" || true
+
+      - name: Post telemetry to the runtime-telemetry ALB
+        env:
+          TELEMETRY_URL: ${{ inputs.telemetry_url }}
+          RUN: ${{ github.run_id }}
+          ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          cfg=/home/agent/agent.json
+          corr=$(jq -r '.correlation_id // empty' "$cfg")
+          key=$(jq -r '.one_time_key // empty' "$cfg")
+          repo=$(jq -r '.repo // empty' "$cfg")
+          if [ -z "$corr" ] || [ -z "$key" ] || [ -z "$repo" ]; then
+            echo "::error::$cfg has no correlation_id, one_time_key or repo"
+            exit 1
+          fi
+          base="${TELEMETRY_URL%/}/github/$repo/actions/jobs/$corr"
+          exe=$(command -v curl)
+          sha=$(sha256sum "$exe" | cut -d' ' -f1)
+
+          post() {
+            local target=$1 kind=$2 body=$3
+            local route=()
+            if [ "$target" = fargate ]; then route=(-H 'x-stepsecurity-rt-target: fargate'); fi
+            local code
+            code=$(curl -sS -o resp.txt -w '%{http_code}' --max-time 30 "${route[@]}" \
+              -H 'content-type: application/json' -H "x-one-time-key: $key" \
+              --data "$body" "$base/$kind")
+            echo "$target $kind: $code $(head -c 200 resp.txt)"
+            if [ "$code" != 200 ]; then
+              echo "::error::$target $kind returned $code"
+              exit 1
+            fi
+          }
+
+          for target in fargate split; do
+            domain="$target-$RUN-$ATTEMPT.rt-e2e.example.com"
+            ts=$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)
+            post "$target" dns "$(jq -nc --arg d "$domain" --arg ts "$ts" --arg pid "$$" \
+              '{domainName: $d, ipAddress: "192.0.2.10", timestamp: $ts, pid: $pid}')"
+            post "$target" networkconnection "$(jq -nc --arg d "$domain" --arg ts "$ts" --arg pid "$$" --arg sha "$sha" \
+              '{domainName: $d, ipAddress: "192.0.2.10", port: "443", pid: $pid, timestamp: $ts, tool: {name: "curl", sha256: $sha}}')"
+            post "$target" httpsconnection "$(jq -nc --arg d "$domain" --arg ts "$ts" --arg pid "$$" --arg exe "$exe" \
+              '{timestamp: $ts, method: "GET", host: $d, path: "/rt-e2e", pid: $pid, exe: $exe}')"
+          done
