@@ -40,13 +40,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@int
+        uses: step-security/harden-runner@f1db3319d7db49c70352da1f5d1a122f754e8c01 # int
         with:
           egress-policy: audit
 
       # Checkout first so the agent observes the repository's real files before
       # any of them are rewritten.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       # Source-Code-Overwritten comes from a file event the agent records when an
       # existing file is rewritten in place, so these have to be files that were
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@int
+        uses: step-security/harden-runner@f1db3319d7db49c70352da1f5d1a122f754e8c01 # int
         with:
           egress-policy: audit
 
