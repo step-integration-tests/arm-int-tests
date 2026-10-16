@@ -7,7 +7,7 @@ jobs:
   build:
     permissions:
       id-token: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       artifact-name: ${{ steps.upload.outputs.artifact-name }}
 
@@ -53,7 +53,7 @@ jobs:
   build-no-policy:
     permissions:
       id-token: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       artifact-name: ${{ steps.upload.outputs.artifact-name }}
 
@@ -98,7 +98,7 @@ jobs:
          go-version: '1.23.0'
   build-no-id-token:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
 
     steps:
 
