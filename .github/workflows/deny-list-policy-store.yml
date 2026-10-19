@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 5
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: prateek-stepsecurity/harden-runner@int
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}        

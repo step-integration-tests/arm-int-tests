@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -67,7 +67,7 @@ jobs:
       # - run: sudo resolvectl flush-caches 
   
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: block
           allowed-endpoints: >

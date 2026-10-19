@@ -11,7 +11,7 @@ jobs:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
       - uses: actions/checkout@v3
@@ -28,7 +28,7 @@ jobs:
     if: always()
     runs-on: ARMLinuxRunner
     steps:
-      - uses: step-security/harden-runner@rc
+      - uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
       - name: Checkout
