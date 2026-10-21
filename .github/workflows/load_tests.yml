@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -89,7 +89,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
           allowed-endpoints: >
@@ -138,7 +138,7 @@ jobs:
     runs-on: LargeRunner
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc
+        uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: block
           allowed-endpoints: >
