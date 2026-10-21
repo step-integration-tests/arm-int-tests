@@ -3,7 +3,7 @@ name: Policy Store - Reusable
 on:
   workflow_call:
     secrets:
-      STEP_SECURITY_API_KEY:
+      STEP_SECURITY_API_KEY_INT:
         required: true
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
         uses: step-security/harden-runner@feature/policy-store
         with:
           use-policy-store: true
-          api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
+          api-key: ${{ secrets.STEP_SECURITY_API_KEY_INT }}
 
       - name: Checkout code
         uses: actions/checkout@v4

@@ -7,4 +7,4 @@ jobs:
   call-reusable:
     uses: step-integration-tests/arm-int-tests/.github/workflows/policy-store-reusable.yml@main
     secrets:
-      STEP_SECURITY_API_KEY: ${{ secrets.STEP_SECURITY_API_KEY }}
+      STEP_SECURITY_API_KEY: ${{ secrets.STEP_SECURITY_API_KEY_INT }}
