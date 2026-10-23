@@ -23,6 +23,18 @@ jobs:
       - run: which node
 
       - run: node req.js
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com
 
   owner-mismatch:
     if: always()
@@ -34,3 +46,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - run: curl -XPOST https://api.github.com/repos/malicious-owner/malicious-repo
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com

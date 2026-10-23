@@ -21,6 +21,18 @@ jobs:
 
       - name: mv overwrite
         run: echo "# Replaced" >> README2.md; mv README2.md README.md
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com
 
   egress-test:
     if: always()
@@ -37,3 +49,15 @@ jobs:
 
       - run: curl https://www.google.com
       - run: curl https://microsoft.com
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com
