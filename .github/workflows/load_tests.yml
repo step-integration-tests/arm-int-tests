@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-host-outbound:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
         uses: prateek-stepsecurity/harden-runner@int
@@ -33,7 +33,7 @@ jobs:
           done
   
   test-docker-outbound:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
         uses: prateek-stepsecurity/harden-runner@int
@@ -86,7 +86,7 @@ jobs:
       - run: cat /etc/resolv.conf
       - run: cat /run/systemd/resolve/resolv.conf
   test-docker-build-outbound:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
         uses: prateek-stepsecurity/harden-runner@int

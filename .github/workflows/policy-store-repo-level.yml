@@ -5,7 +5,7 @@ on:
 
 jobs:
   repo-level-policy:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Harden the runner

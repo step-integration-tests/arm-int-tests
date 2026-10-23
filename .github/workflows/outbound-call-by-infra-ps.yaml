@@ -5,7 +5,7 @@ on:
 
 jobs:
   outbound-call:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - uses: prateek-stepsecurity/harden-runner@int
         with:
@@ -35,7 +35,7 @@ jobs:
           sleep 90   # keep the job alive long enough to see it run
 
   test-docker-build-outbound:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
         uses: prateek-stepsecurity/harden-runner@int

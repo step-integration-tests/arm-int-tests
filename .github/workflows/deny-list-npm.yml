@@ -6,7 +6,7 @@ on:
 jobs:
 
   npm-denied:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: prateek-stepsecurity/harden-runner@int
@@ -35,7 +35,7 @@ jobs:
         run: curl --connect-timeout 5 -Iv "https://google.com"
 
   npm-allowed:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: prateek-stepsecurity/harden-runner@int

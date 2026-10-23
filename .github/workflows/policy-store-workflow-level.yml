@@ -5,7 +5,7 @@ on:
 
 jobs:
   workflow-level-policy:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Harden the runner
