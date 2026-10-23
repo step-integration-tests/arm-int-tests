@@ -33,6 +33,18 @@ jobs:
           echo "Cron daemon PPID: $(ps -o ppid= -p $(pgrep cron))"
           echo "Cron is now firing every minute in the background..."
           sleep 90   # keep the job alive long enough to see it run
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com
 
   test-docker-build-outbound:
     runs-on: ubuntu-26.04
@@ -86,3 +98,15 @@ jobs:
 
       - name: Download with wget from domain
         run: wget https://www.amazon.in/
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com

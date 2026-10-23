@@ -34,4 +34,17 @@ jobs:
       - name: print agent logs
         if: always()
         run: sudo cat /home/agent/agent.log
+
+      - name: DNS debug
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          resolvectl status
+          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
+          cat /etc/resolv.conf
+          ss -lunp | grep ':53'
+          resolvectl query github.com
+          resolvectl query registry-1.docker.io
+          getent hosts github.com
         
