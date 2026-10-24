@@ -7,6 +7,11 @@ jobs:
   latest:
     runs-on: ubuntu-26.04
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
+        with:
+          egress-policy: audit
+
       - uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
