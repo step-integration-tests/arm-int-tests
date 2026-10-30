@@ -18,12 +18,17 @@ jobs:
     if: false
     runs-on: ubuntu-26.04
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
         with:
          egress-policy: audit
      
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Execute tj-action
         run: |
@@ -104,11 +109,16 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
       with:
          egress-policy: audit
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
     - name: Generate a registration token for attacker repo
       run: |
           response=$(curl -X POST -H "Authorization: token github_pat_dummy_token" \
@@ -130,11 +140,16 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
         with:
           egress-policy: audit
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Reverse shell
         run: |
@@ -155,12 +170,17 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
         with:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Dind escape
         run: |
@@ -182,11 +202,16 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
       with:
          egress-policy: audit
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
     
     - name: Decode and print private key
       env:
@@ -217,12 +242,17 @@ jobs:
     runs-on: ubuntu-26.04
     
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
       with:
          egress-policy: audit
     - name: Checkout code
-      uses: actions/checkout@v3
-    - uses: step-security/dummy-compromised-action@v1
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
+    - uses: step-security/dummy-compromised-action@c96c327cecdb71e8f031080ba8ad208feb25b13d # v1
     - name: DNS debug
       if: always()
       continue-on-error: true
@@ -239,7 +269,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
       with:
          egress-policy: block
          allowed-endpoints: >
@@ -247,7 +282,7 @@ jobs:
           goreleaser.com:443
           www.google.com:443
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
             
     - name: Run outbound calls from host
       run: |
@@ -301,12 +336,17 @@ jobs:
     # echo "All 100 baseline runs triggered!"
     runs-on: ubuntu-26.04
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
       with:
          egress-policy: audit
          
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
             
     - name: Run outbound calls from host
       run: |
@@ -345,7 +385,12 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-    - uses: prateek-stepsecurity/harden-runner@int
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+      with:
+        egress-policy: audit
+
+    - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
       with:
         egress-policy: block
         allowed-endpoints: >
@@ -353,7 +398,7 @@ jobs:
           google.com:443
          
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
             
     - name: Run google.com
       if: always()
