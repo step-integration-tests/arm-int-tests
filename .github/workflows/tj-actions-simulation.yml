@@ -7,12 +7,17 @@ jobs:
   tj-actions-simulation:
     runs-on: ubuntu-26.04
     steps:
-      - uses: prateek-stepsecurity/harden-runner@int
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        with:
+          egress-policy: audit
+
+      - uses: prateek-stepsecurity/harden-runner@8df3342ed82aa2890e7883b264a0e28a2efe0195 # int
         with:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Execute tj-action
         run: |
