@@ -13,13 +13,13 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # rc
         with:
           policy: block-policy
 
       # - run: sudo resolvectl flush-caches 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       # - run: |
       #     bash trace_log.sh&
@@ -38,7 +38,7 @@ jobs:
 
       - name: Upload artifact
         id: upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: my-artifact
           path: output.txt
@@ -47,7 +47,7 @@ jobs:
       #   if: always()
       #   run: |
       #     sudo cat trace.log
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
         with:
          go-version: '1.23.0'
       - name: DNS debug
@@ -71,13 +71,13 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # rc
         with:
           policy: block-policy1
 
       # - run: sudo resolvectl flush-caches 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       # - run: |
       #     bash trace_log.sh&
@@ -96,7 +96,7 @@ jobs:
 
       - name: Upload artifact
         id: upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: my-artifact
           path: output.txt
@@ -105,7 +105,7 @@ jobs:
       #   if: always()
       #   run: |
       #     sudo cat trace.log
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
         with:
          go-version: '1.23.0'
       - name: DNS debug
@@ -129,18 +129,18 @@ jobs:
       # - run: sudo resolvectl flush-caches 
   
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # rc
         with:
           policy: block-policy
             
       # - name: Checkout code
-      #   uses: actions/checkout@v4
+      #   uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       # - run: |
       #     bash trace_log.sh&
 
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: my-artifact
 
@@ -149,7 +149,7 @@ jobs:
           echo "Contents of artifact:"
           cat output.txt
      
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
         with:
           go-version: '1.23.0'
       # - name: print tracer log
