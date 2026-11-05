@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@feature/policy-store
+        uses: step-security/harden-runner@rc
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
@@ -28,17 +28,4 @@ jobs:
       - name: call microsoft
         run: |
           curl https://microsoft.com
-
-      - name: DNS debug
-        if: always()
-        continue-on-error: true
-        run: |
-          set +e
-          resolvectl status
-          ls -la /etc/systemd/resolved.conf.d/ /run/systemd/resolved.conf.d/ 2>&1
-          cat /etc/resolv.conf
-          ss -lunp | grep ':53'
-          resolvectl query github.com
-          resolvectl query registry-1.docker.io
-          getent hosts github.com
           
