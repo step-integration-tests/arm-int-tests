@@ -92,7 +92,7 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
-    - uses: step-security/harden-runner@v2
+    - uses: step-security/harden-runner@rc
       with:
          egress-policy: audit
     - name: Checkout
