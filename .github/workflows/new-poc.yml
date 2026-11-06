@@ -18,9 +18,10 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
         with:
-         egress-policy: audit
+          environment: sailikhith.dedicated-dev
+          egress-policy: audit
      
       - name: Checkout
         uses: actions/checkout@v4
@@ -92,9 +93,10 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
       with:
-         egress-policy: audit
+        environment: sailikhith.dedicated-dev
+        egress-policy: audit
     - name: Checkout
       uses: actions/checkout@v4
     - name: Generate a registration token for attacker repo
@@ -106,9 +108,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
         with:
+          environment: sailikhith.dedicated-dev
           egress-policy: audit
+          
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -119,8 +123,9 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: step-security/harden-runner@rc-20-int
+      - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
         with:
+          environment: sailikhith.dedicated-dev
           egress-policy: audit
 
       - name: Checkout
@@ -134,9 +139,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
       with:
-         egress-policy: audit
+        environment: sailikhith.dedicated-dev
+        egress-policy: audit
+        
     - name: Checkout code
       uses: actions/checkout@v3
     
@@ -157,9 +164,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
       with:
-         egress-policy: audit
+        environment: sailikhith.dedicated-dev
+        egress-policy: audit
     - name: Checkout code
       uses: actions/checkout@v3
     - uses: step-security/dummy-compromised-action@v1
@@ -167,10 +175,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
       with:
-         egress-policy: block
-         allowed-endpoints: >
+        environment: sailikhith.dedicated-dev
+        egress-policy: block
+        allowed-endpoints: >
           github.com:443
           goreleaser.com:443
           www.google.com:443
@@ -217,9 +226,10 @@ jobs:
     # echo "All 100 baseline runs triggered!"
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
       with:
-         egress-policy: audit
+        environment: sailikhith.dedicated-dev
+        egress-policy: audit
          
     - name: Checkout code
       uses: actions/checkout@v3
@@ -265,8 +275,9 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: step-security/harden-runner@rc-20-int
+    - uses: sailikhith-stepsecurity/harden-runner@feat/dedicated-env
       with:
+        environment: sailikhith.dedicated-dev
         egress-policy: block
         allowed-endpoints: >
           www.google.com:443
