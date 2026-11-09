@@ -18,6 +18,11 @@ jobs:
     if: false
     runs-on: ubuntu-26.04
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: prateek-stepsecurity/harden-runner@int
         with:
          egress-policy: audit
@@ -104,6 +109,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - uses: prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
@@ -130,6 +140,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
@@ -155,6 +170,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: prateek-stepsecurity/harden-runner@int
         with:
           egress-policy: audit
@@ -182,6 +202,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - uses: prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
@@ -217,6 +242,11 @@ jobs:
     runs-on: ubuntu-26.04
     
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - uses: prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
@@ -239,6 +269,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - uses: prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: block
@@ -301,6 +336,11 @@ jobs:
     # echo "All 100 baseline runs triggered!"
     runs-on: ubuntu-26.04
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - uses: prateek-stepsecurity/harden-runner@int
       with:
          egress-policy: audit
@@ -345,6 +385,11 @@ jobs:
     if: ${{ github.event.inputs.run_only_anomalous != 'true' }}
     runs-on: ubuntu-26.04
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - uses: prateek-stepsecurity/harden-runner@int
       with:
         egress-policy: block
