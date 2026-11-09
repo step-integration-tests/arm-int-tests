@@ -41,7 +41,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@rc-20-int
+        uses: step-security/harden-runner@b458cf61e24e167c05a441dec5234b240974af45 # rc-20-int
         with:
           egress-policy: audit
 
