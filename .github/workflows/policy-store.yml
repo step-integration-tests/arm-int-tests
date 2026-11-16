@@ -3,6 +3,9 @@ name: Policy Store
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     permissions:
@@ -13,7 +16,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@193b0f9f4c9e119f96a54940eebaec986cc46a0a # rc
         with:
           policy: block-policy
 
@@ -71,7 +74,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@193b0f9f4c9e119f96a54940eebaec986cc46a0a # rc
         with:
           policy: block-policy1
 
@@ -129,7 +132,7 @@ jobs:
       # - run: sudo resolvectl flush-caches 
   
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@193b0f9f4c9e119f96a54940eebaec986cc46a0a # rc
         with:
           policy: block-policy
             

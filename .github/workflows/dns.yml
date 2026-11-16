@@ -3,12 +3,15 @@ name: DNS Resolution Workflow
 on:
   workflow_dispatch:
   
+permissions:
+  contents: read
+
 jobs:
   dns-resolution:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@int-sh
+        uses: step-security/harden-runner@668ad3cce4bd0191ec8fdd9868adcb7521a9dacd # int-sh
         with:
           egress-policy: audit
 

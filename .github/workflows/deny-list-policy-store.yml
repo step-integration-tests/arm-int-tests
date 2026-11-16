@@ -3,6 +3,9 @@ name: DenyList Test - Policy Store
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
 
   dockerhub-denied:
@@ -10,7 +13,7 @@ jobs:
     timeout-minutes: 5
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@193b0f9f4c9e119f96a54940eebaec986cc46a0a # rc
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}        

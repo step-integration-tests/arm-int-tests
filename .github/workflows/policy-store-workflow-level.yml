@@ -3,13 +3,16 @@ name: Policy Store - Workflow Level
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   workflow-level-policy:
     runs-on: ubuntu-26.04
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@rc
+        uses: step-security/harden-runner@193b0f9f4c9e119f96a54940eebaec986cc46a0a # rc
         with:
           use-policy-store: true
           api-key: ${{ secrets.STEP_SECURITY_API_KEY }}
