@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
         with:
           egress-policy: block
           allowed-endpoints: >
             *:443
             *:80
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
 
       
       - run: curl https://8.8.8.8
