@@ -59,7 +59,7 @@ jobs:
         continue-on-error: true
         run: |
           # Start the container
-          docker run --rm -d --name test-container ubuntu:latest sleep 90
+          docker run --rm -d --name test-container ubuntu:latest sleep infinity
           
           # Install curl in the container
           docker exec test-container apt-get update
