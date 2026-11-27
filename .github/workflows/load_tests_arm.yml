@@ -162,20 +162,23 @@ jobs:
         run: |
           # Start the long-running container
           docker run --rm -d --name long-running-container ubuntu:latest bash -c "
-            apt-get update && apt-get install -y curl && 
-            while true; do 
-              curl -I https://www.google.com; 
-              curl -I https://goreleaser.com; 
-              sleep 10; 
+            apt-get update && apt-get install -y curl &&
+            while true;
+              do curl -I https://www.google.com;
+              curl -I https://goreleaser.com;
+              sleep 10;
             done
           "
-          
+      
           # Print /etc/resolv.conf from the container
           docker exec long-running-container cat /etc/resolv.conf
-          
-          # Let the container run for 5 minutes
-          sleep 90
-          
+      
+          # Wait (up to 5 min) until the first curl has actually run, however slow apt is
+          timeout 300 bash -c 'until docker logs long-running-container 2>&1 | grep -qE "HTTP/|curl: \("; do sleep 3; done'
+      
+          # Let one more loop iteration run so both hosts are called
+          sleep 15
+      
           # Stop the container
           docker stop long-running-container
 
