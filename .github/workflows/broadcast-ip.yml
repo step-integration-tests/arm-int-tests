@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
 
-      - uses: step-security/harden-runner@rc
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # rc
         with:
           egress-policy: block
           allowed-endpoints: >
